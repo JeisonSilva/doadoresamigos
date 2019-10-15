@@ -3,6 +3,7 @@ package com.jsonapp.doadoresamigos;
 import com.jsonapp.doadoresamigos.autenticacao.AutenticacaoDal;
 import com.jsonapp.doadoresamigos.autenticacao.AutenticacaoUsuario;
 import com.jsonapp.doadoresamigos.autenticacao.ContaDto;
+import com.jsonapp.doadoresamigos.autenticacao.ContaRepositorio;
 import com.jsonapp.doadoresamigos.autenticacao.NovaContaRepositorio;
 
 import org.junit.Before;
@@ -16,13 +17,13 @@ import static org.mockito.Mockito.when;
 public class AutenticacaoUsuarioTest {
 
     private AutenticacaoDal autenticacaoDal;
-    private NovaContaRepositorio contaRepositorio;
+    private ContaRepositorio contaRepositorio;
     private AutenticacaoUsuario autenticacaoUsuario;
 
     @Before
     public void ConfigurarTestes(){
         this.autenticacaoDal = Mockito.mock(AutenticacaoDal.class);
-        this.contaRepositorio = Mockito.mock(NovaContaRepositorio.class);
+        this.contaRepositorio = Mockito.mock(ContaRepositorio.class);
         this.autenticacaoUsuario = new AutenticacaoUsuario(this.autenticacaoDal, this.contaRepositorio);
 
         MockitoAnnotations.initMocks(this);
