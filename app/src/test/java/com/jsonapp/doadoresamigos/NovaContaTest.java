@@ -4,7 +4,7 @@ package com.jsonapp.doadoresamigos;
 import com.jsonapp.doadoresamigos.autenticacao.ContaDto;
 import com.jsonapp.doadoresamigos.autenticacao.NovaConta;
 import com.jsonapp.doadoresamigos.autenticacao.NovaContaDal;
-import com.jsonapp.doadoresamigos.autenticacao.NovaContaRepositorio;
+import com.jsonapp.doadoresamigos.autenticacao.ContaRepositorio;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -28,13 +28,13 @@ public class NovaContaTest {
         contaDto.setSenha("123456");
         contaDto.setConfirmacaoSenha("123456");
         NovaContaDal novaContaDal = Mockito.mock(NovaContaDal.class);
-        NovaContaRepositorio novaContaRepositorio = Mockito.mock(NovaContaRepositorio.class);
-        NovaConta novaConta = new NovaConta(novaContaDal, novaContaRepositorio);
+        ContaRepositorio contaRepositorio = Mockito.mock(ContaRepositorio.class);
+        NovaConta novaConta = new NovaConta(novaContaDal, contaRepositorio);
         when(novaContaDal.obterDadosDaConta()).thenReturn(contaDto);
 
         novaConta.criarNovoUsuario();
 
-        verify(novaContaRepositorio).registrar(Mockito.any(ContaDto.class));
+        verify(contaRepositorio).registrar(Mockito.any(ContaDto.class));
     }
 
     @Test
@@ -43,8 +43,8 @@ public class NovaContaTest {
         contaDto.setSenha("123456");
         contaDto.setConfirmacaoSenha("123456");
         NovaContaDal novaContaDal = Mockito.mock(NovaContaDal.class);
-        NovaContaRepositorio novaContaRepositorio = Mockito.mock(NovaContaRepositorio.class);
-        NovaConta novaConta = new NovaConta(novaContaDal, novaContaRepositorio);
+        ContaRepositorio contaRepositorio = Mockito.mock(ContaRepositorio.class);
+        NovaConta novaConta = new NovaConta(novaContaDal, contaRepositorio);
 
         when(novaContaDal.obterDadosDaConta()).thenReturn(contaDto);
         novaConta.criarNovoUsuario();
@@ -58,8 +58,8 @@ public class NovaContaTest {
         contaDto.setUsuario("leandro");
         contaDto.setConfirmacaoSenha("123456");
         NovaContaDal novaContaDal = Mockito.mock(NovaContaDal.class);
-        NovaContaRepositorio novaContaRepositorio = Mockito.mock(NovaContaRepositorio.class);
-        NovaConta novaConta = new NovaConta(novaContaDal, novaContaRepositorio);
+        ContaRepositorio contaRepositorio = Mockito.mock(ContaRepositorio.class);
+        NovaConta novaConta = new NovaConta(novaContaDal, contaRepositorio);
 
         when(novaContaDal.obterDadosDaConta()).thenReturn(contaDto);
         novaConta.criarNovoUsuario();
@@ -74,8 +74,8 @@ public class NovaContaTest {
         contaDto.setUsuario("leandro");
         contaDto.setSenha("123456");
         NovaContaDal novaContaDal = Mockito.mock(NovaContaDal.class);
-        NovaContaRepositorio novaContaRepositorio = Mockito.mock(NovaContaRepositorio.class);
-        NovaConta novaConta = new NovaConta(novaContaDal, novaContaRepositorio);
+        ContaRepositorio contaRepositorio = Mockito.mock(ContaRepositorio.class);
+        NovaConta novaConta = new NovaConta(novaContaDal, contaRepositorio);
 
         when(novaContaDal.obterDadosDaConta()).thenReturn(contaDto);
         novaConta.criarNovoUsuario();

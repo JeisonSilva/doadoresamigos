@@ -2,11 +2,11 @@ package com.jsonapp.doadoresamigos.autenticacao;
 
 public class NovaConta {
     private final NovaContaDal novaContaDal;
-    private final NovaContaRepositorio novaContaRepositorio;
+    private final ContaRepositorio contaRepositorio;
 
-    public NovaConta(NovaContaDal novaContaDal, NovaContaRepositorio novaContaRepositorio) {
+    public NovaConta(NovaContaDal novaContaDal, ContaRepositorio contaRepositorio) {
         this.novaContaDal = novaContaDal;
-        this.novaContaRepositorio = novaContaRepositorio;
+        this.contaRepositorio = contaRepositorio;
     }
 
     public void criarNovoUsuario() {
@@ -20,7 +20,7 @@ public class NovaConta {
             return;
 
         if(conta.ConfirmarSenha(contaDto.getConfirmacaoSenha()))
-            this.novaContaRepositorio.registrar(contaDto);
+            this.contaRepositorio.registrar(contaDto);
         else
             this.novaContaDal.notificarConfirmacaoSenhaInvalida();
     }
