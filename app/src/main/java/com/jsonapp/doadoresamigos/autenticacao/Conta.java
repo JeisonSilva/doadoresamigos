@@ -2,7 +2,7 @@ package com.jsonapp.doadoresamigos.autenticacao;
 
 class Conta {
     private final String usuario;
-    private final String senha;
+    private String senha;
 
     public Conta(String usuario, String senha) {
         this.usuario = usuario;
@@ -14,5 +14,9 @@ class Conta {
             return false;
 
         return this.senha.equals(confirmacaoSenha);
+    }
+
+    public void alterarSenha(String senha) {
+        this.senha = senha;
     }
 }
