@@ -6,4 +6,6 @@ public interface ContaRepositorio {
     void alterar(ContaDto contaDto);
 
     ContaDto obterConta(ContaDto contaDto);
+
+    void excluirConta(ContaDto contaDto);
 }

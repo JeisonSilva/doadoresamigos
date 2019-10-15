@@ -2,9 +2,9 @@ package com.jsonapp.doadoresamigos.autenticacao;
 
 public class AutenticacaoUsuario {
     private final AutenticacaoDal autenticacaoDal;
-    private final NovaContaRepositorio contaRepositorio;
+    private final ContaRepositorio contaRepositorio;
 
-    public AutenticacaoUsuario(AutenticacaoDal autenticacaoDal, NovaContaRepositorio contaRepositorio) {
+    public AutenticacaoUsuario(AutenticacaoDal autenticacaoDal, ContaRepositorio contaRepositorio) {
         this.autenticacaoDal = autenticacaoDal;
         this.contaRepositorio = contaRepositorio;
     }
