@@ -16,6 +16,10 @@ class Conta {
         return this.senha.equals(confirmacaoSenha);
     }
 
+    public boolean confirmarUsuario(String usuario) {
+        return this.usuario.equals(usuario);
+    }
+
     public void alterarSenha(String senha) {
         this.senha = senha;
     }
