@@ -11,6 +11,11 @@ public class RegistroDoador {
 
     public void registrar() {
         DoadorDto dadosInformadosPeloUsuario = this.registroDoadorDal.obterDadosInformadosPeloUsuario();
-        this.doadorRepositorio.registrar(dadosInformadosPeloUsuario);
+        Doador doador = DoadorConvert.converter(dadosInformadosPeloUsuario);
+
+        if(DoadorValidation.isValid(doador))
+            this.doadorRepositorio.registrar(dadosInformadosPeloUsuario);
+        else
+            this.registroDoadorDal.notificarDadosInvalidos();
     }
 }
