@@ -21,7 +21,7 @@ public class AutenticacaoUsuarioTest {
     private AutenticacaoUsuario autenticacaoUsuario;
 
     @Before
-    public void ConfigurarTestes(){
+    public void configurarTestes(){
         this.autenticacaoDal = Mockito.mock(AutenticacaoDal.class);
         this.contaRepositorio = Mockito.mock(ContaRepositorio.class);
         this.autenticacaoUsuario = new AutenticacaoUsuario(this.autenticacaoDal, this.contaRepositorio);
@@ -30,7 +30,7 @@ public class AutenticacaoUsuarioTest {
     }
 
     @Test
-    public void DeveAutenticarUsuario(){
+    public void deveAutenticarUsuario(){
         ContaDto contaDto = new ContaDto();
         ContaDto contaDto2 = new ContaDto();
         contaDto.setUsuario("Elena");
@@ -47,7 +47,7 @@ public class AutenticacaoUsuarioTest {
     }
 
     @Test
-    public void NaoDeveAutenticarUsuarioInvalido(){
+    public void naoDeveAutenticarUsuarioInvalido(){
         ContaDto contaDto = new ContaDto();
         ContaDto contaDto2 = new ContaDto();
         contaDto.setUsuario("Elena");
@@ -63,7 +63,7 @@ public class AutenticacaoUsuarioTest {
     }
 
     @Test
-    public void NaoDeveAutenticarSenhaInvalida(){
+    public void naoDeveAutenticarSenhaInvalida(){
         ContaDto contaDto = new ContaDto();
         ContaDto contaDto2 = new ContaDto();
         contaDto.setUsuario("Elena");

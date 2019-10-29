@@ -6,4 +6,6 @@ public interface DoadorRepositorio {
     void excluir(DoadorDto doadorDto);
 
     void registrar(DoadorDto doadorDto);
+
+    Void alterar(DoadorDto doadorDto);
 }
