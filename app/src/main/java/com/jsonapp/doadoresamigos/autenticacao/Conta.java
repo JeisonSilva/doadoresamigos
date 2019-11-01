@@ -23,4 +23,17 @@ class Conta {
     public void alterarSenha(String senha) {
         this.senha = senha;
     }
+
+    public boolean usuarioNaoPreenchido() {
+        if(this.usuario == null)
+            return true;
+
+        return this.usuario.isEmpty();
+    }
+
+    public boolean senhaNaoPreenchida() {
+        if(this.senha == null)
+            return true;
+        return this.senha.isEmpty();
+    }
 }

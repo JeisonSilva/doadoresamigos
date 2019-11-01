@@ -3,9 +3,15 @@ package com.jsonapp.doadoresamigos.autenticacao;
 public interface NovaContaDal {
     ContaDto obterDadosDaConta();
 
+    void notificarPreenchimentoUsuario();
+
+    void notificarPreenchimentoSenha();
+
     void notificarConfirmacaoSenhaInvalida();
 
-    boolean notificarPreenchimentoUsuario();
+    void limparNotificacoes();
 
-    boolean notificarPreenchimentoSenha();
+    void limparDadosDoUsuarioRegistrado();
+
+    void sairDoCadastro();
 }

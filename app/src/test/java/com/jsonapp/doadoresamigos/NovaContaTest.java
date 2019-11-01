@@ -22,7 +22,7 @@ public class NovaContaTest {
     }
 
     @Test
-    public void DeveReceberNovaContaDeUsuario(){
+    public void deveReceberNovaContaDeUsuario(){
         ContaDto contaDto = new ContaDto();
         contaDto.setUsuario("leandro");
         contaDto.setSenha("123456");
@@ -55,7 +55,7 @@ public class NovaContaTest {
     @Test
     public void DeveNotiticarPreenchimentoDeSenha(){
         ContaDto contaDto = new ContaDto();
-        contaDto.setUsuario("leandro");
+        contaDto.setUsuario("");
         contaDto.setConfirmacaoSenha("123456");
         NovaContaDal novaContaDal = Mockito.mock(NovaContaDal.class);
         ContaRepositorio contaRepositorio = Mockito.mock(ContaRepositorio.class);
@@ -72,7 +72,7 @@ public class NovaContaTest {
     public  void DeveNotificarPreenchimentoConfirmacaoSenha(){
         ContaDto contaDto = new ContaDto();
         contaDto.setUsuario("leandro");
-        contaDto.setSenha("123456");
+        contaDto.setSenha("");
         NovaContaDal novaContaDal = Mockito.mock(NovaContaDal.class);
         ContaRepositorio contaRepositorio = Mockito.mock(ContaRepositorio.class);
         NovaConta novaConta = new NovaConta(novaContaDal, contaRepositorio);
@@ -81,5 +81,37 @@ public class NovaContaTest {
         novaConta.criarNovoUsuario();
 
         verify(novaContaDal).notificarPreenchimentoSenha();
+    }
+
+    @Test
+    public void deveLimparDadosDepoisDeRegistrarConta(){
+        ContaDto contaDto = new ContaDto();
+        contaDto.setUsuario("leandro");
+        contaDto.setSenha("123456");
+        contaDto.setConfirmacaoSenha("123456");
+        NovaContaDal novaContaDal = Mockito.mock(NovaContaDal.class);
+        ContaRepositorio contaRepositorio = Mockito.mock(ContaRepositorio.class);
+        NovaConta novaConta = new NovaConta(novaContaDal, contaRepositorio);
+        when(novaContaDal.obterDadosDaConta()).thenReturn(contaDto);
+
+        novaConta.criarNovoUsuario();
+
+        verify(novaContaDal).limparDadosDoUsuarioRegistrado();
+    }
+
+    @Test
+    public void deveSairDoCadastroDepoisDeRegistrarNovaConta(){
+        ContaDto contaDto = new ContaDto();
+        contaDto.setUsuario("leandro");
+        contaDto.setSenha("123456");
+        contaDto.setConfirmacaoSenha("123456");
+        NovaContaDal novaContaDal = Mockito.mock(NovaContaDal.class);
+        ContaRepositorio contaRepositorio = Mockito.mock(ContaRepositorio.class);
+        NovaConta novaConta = new NovaConta(novaContaDal, contaRepositorio);
+        when(novaContaDal.obterDadosDaConta()).thenReturn(contaDto);
+
+        novaConta.criarNovoUsuario();
+
+        verify(novaContaDal).sairDoCadastro();
     }
 }

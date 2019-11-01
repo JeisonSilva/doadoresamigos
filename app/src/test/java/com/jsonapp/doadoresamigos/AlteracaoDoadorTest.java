@@ -5,6 +5,7 @@ import com.jsonapp.doadoresamigos.gestaodoadores.AlteracaoDoadorDal;
 import com.jsonapp.doadoresamigos.gestaodoadores.DoadorDto;
 import com.jsonapp.doadoresamigos.gestaodoadores.DoadorRepositorio;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -24,7 +25,6 @@ public class AlteracaoDoadorTest {
         this.doadorRepositorio = Mockito.mock(DoadorRepositorio.class);
         this.alteracaoDoadorDal = Mockito.mock(AlteracaoDoadorDal.class);
 
-        this.alteracaoDoador = new AlteracaoDoador(alteracaoDoadorDal, doadorRepositorio);
     }
 
     @Test
@@ -32,6 +32,7 @@ public class AlteracaoDoadorTest {
         DoadorDto doadorDto = new DoadorDto();
         when(this.alteracaoDoadorDal.obterDadosDoador()).thenReturn(doadorDto);
         when(this.doadorRepositorio.alterar(Mockito.any(DoadorDto.class)));
+        this.alteracaoDoador = new AlteracaoDoador(alteracaoDoadorDal, doadorRepositorio);
 
         this.alteracaoDoador.alterar();
 

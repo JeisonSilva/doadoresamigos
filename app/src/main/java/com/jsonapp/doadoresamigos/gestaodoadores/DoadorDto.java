@@ -1,6 +1,7 @@
 package com.jsonapp.doadoresamigos.gestaodoadores;
 
 public class DoadorDto {
+    private int codigo;
     private String nome;
     private String sobrenome;
     private Integer idade;
@@ -63,5 +64,13 @@ public class DoadorDto {
 
     public void setAltura(double altura) {
         this.altura = altura;
+    }
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 }
