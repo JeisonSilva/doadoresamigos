@@ -7,4 +7,27 @@
     <string name="hint_senha">Senha</string>
     <string name="hint_confirmacao_senha">Confirmação da senha</string>
     <string name="hint_titulo_pesquisa_doador">ID do doador</string>
+    <string name="titulo_cadastro_doador">Novo Doador</string>
+    <string name="cadastro_doador_n_identificador">Nº. de Identificação</string>
+    <string name="cadastro_doador_nome">Nome</string>
+    <string name="cadastro_doador_sobrenome">Sobrenome</string>
+    <string name="cadastro_doador_idade">Idade</string>
+    <string name="cadastro_doador_peso">Peso (Kg)</string>
+    <string name="cadastro_doador_altura">Altura (cm)</string>
+    <string name="btn_cancelar">CANCELAR</string>
+    <string name="btn_registrar">REGISTRAR</string>
+
+    <string-array name="tipossanguineos">
+        <item>Tipo de Sangue</item>
+        <item>Tipo A</item>
+        <item>Tipo B</item>
+        <item>Tipo O</item>
+        <item>Tipo AB</item>
+    </string-array>
+
+    <string-array name="fatorh">
+        <item>Fator RH</item>
+        <item>Rh +</item>
+        <item>Rh -</item>
+    </string-array>
 </resources>

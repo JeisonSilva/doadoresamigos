@@ -7,10 +7,18 @@ import androidx.appcompat.widget.Toolbar;
 import android.os.Bundle;
 import android.view.View;
 
-public class PesquisaDoadorActivity extends AppCompatActivity {
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.jsonapp.doadoresamigos.gestaodoadores.DoadorDto;
+import com.jsonapp.doadoresamigos.gestaodoadores.DoadorRepositorioImpl;
+import com.jsonapp.doadoresamigos.gestaodoadores.PesquisaDoador;
+import com.jsonapp.doadoresamigos.gestaodoadores.PesquisaDoadorDal;
+
+public class PesquisaDoadorActivity extends AppCompatActivity implements PesquisaDoadorDal {
 
     private Toolbar toolbar;
     private SearchView search;
+    private FloatingActionButton fbAddDoador;
+    private PesquisaDoador pesquisaDoador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,17 +27,31 @@ public class PesquisaDoadorActivity extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
         search = findViewById(R.id.search);
+        fbAddDoador = findViewById(R.id.fbAddDoador);
+
+        configurarPesquisaDoador(search);
+        setSupportActionBar(toolbar);
+        fbAddDoador.setOnClickListener(addDoadorListener);
+
+        pesquisaDoador = new PesquisaDoador(this, new DoadorRepositorioImpl(getBaseContext()));
+    }
+
+    private void configurarPesquisaDoador(SearchView search) {
         search.setQueryHint(getString(R.string.hint_titulo_pesquisa_doador));
         search.setActivated(true);
         search.onActionViewExpanded();
         search.setIconified(false);
         search.clearFocus();
         search.setOnQueryTextListener(queryListener);
-
-        setSupportActionBar(toolbar);
-
-
     }
+
+    View.OnClickListener addDoadorListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            CadastroDoadorDialog cadastroDoadorDialog = CadastroDoadorDialog.newInstance();
+            cadastroDoadorDialog.openDialog(getSupportFragmentManager());
+        }
+    };
 
     SearchView.OnQueryTextListener queryListener = new SearchView.OnQueryTextListener() {
         @Override
@@ -42,4 +64,24 @@ public class PesquisaDoadorActivity extends AppCompatActivity {
             return false;
         }
     };
+
+    @Override
+    public void exibirDoador(DoadorDto doadorDto) {
+
+    }
+
+    @Override
+    public Integer obterCodigoPesquisa() {
+        return null;
+    }
+
+    @Override
+    public void notificarUsuarioDePesquisaSemRetornoDeDados() {
+
+    }
+
+    @Override
+    public void notificarUsuarioDeCodigoDoadorInvalido() {
+
+    }
 }

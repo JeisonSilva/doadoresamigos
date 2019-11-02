@@ -7,16 +7,15 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.print.PrinterId;
 
-public class ContaRepositorioImpl extends SQLiteOpenHelper implements ContaRepositorio {
-    private static final String BANCO_DE_DADOS = "doadoresamigos.db";
-    private static final int VERSAO = 1;
+import com.jsonapp.doadoresamigos.utils.BaseRepositorio;
 
+public class ContaRepositorioImpl extends BaseRepositorio implements ContaRepositorio {
     private static final String CAMPO_USUARIO = "USUARIO";
     private static final String CAMPO_SENHA = "SENHA";
     private static final String TABELA = "CONTA";
 
     public ContaRepositorioImpl(Context context) {
-        super(context, TABELA , null, VERSAO);
+        super(context);
     }
 
     @Override
@@ -68,11 +67,10 @@ public class ContaRepositorioImpl extends SQLiteOpenHelper implements ContaRepos
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(
-                "CREATE TABLE " + TABELA + "(" +
+                "CREATE TABLE IF NOT EXISTS " + TABELA + "(" +
                         CAMPO_USUARIO + " TEXT NOT NULL, " +
                         CAMPO_SENHA + " TEXT NOT NULL" +
                         ")");
-        sqLiteDatabase.close();
     }
 
     @Override

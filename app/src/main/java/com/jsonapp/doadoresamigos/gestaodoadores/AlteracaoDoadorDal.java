@@ -1,30 +1,19 @@
 package com.jsonapp.doadoresamigos.gestaodoadores;
 
-public class AlteracaoDoadorDal {
-    public DoadorDto obterDadosDoador() {
-        return new DoadorDto();
-    }
+public interface AlteracaoDoadorDal {
+    DoadorDto obterDadosDoador();
 
-    public void notificarNomeInvalido() {
+    void notificarNomeInvalido();
 
-    }
+    void notificarSobrenome();
 
-    public void notificarSobrenome() {
+    void norificarIdadeInvalida();
 
-    }
+    void notificarAlturaInvalida();
 
-    public void norificarIdadeInvalida() {
-    }
+    void notificarFatorRhInvalido();
 
-    public void notificarAlturaInvalida() {
-    }
+    void notificarTipoSanguineoInvalido();
 
-    public void notificarFatorRhInvalido() {
-    }
-
-    public void notificarTipoSanguineoInvalido() {
-    }
-
-    public void notificarPesoInvalido() {
-    }
+    void notificarPesoInvalido();
 }
