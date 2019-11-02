@@ -13,7 +13,7 @@ public class AutenticacaoUsuario {
         ContaDto dadosDigitadosPeloUsuario = this.autenticacaoDal.obterDadosUsuario();
         ContaDto contaExistente = this.contaRepositorio.obterConta(dadosDigitadosPeloUsuario);
 
-        if(contaExistente == null)
+        if(contaExistente.getUsuario().isEmpty() && contaExistente.getSenha().isEmpty())
             this.autenticacaoDal.notificarUsuarioNaoCadastrado();
         else{
             Conta conta = new Conta(contaExistente.getUsuario(), contaExistente.getSenha());

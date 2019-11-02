@@ -5,6 +5,11 @@ public class ContaDto {
     private String senha;
     private String confirmacaoSenha;
 
+    public ContaDto() {
+        usuario = "";
+        senha = "";
+        confirmacaoSenha = "";
+    }
 
     public String getUsuario() {
         return usuario;

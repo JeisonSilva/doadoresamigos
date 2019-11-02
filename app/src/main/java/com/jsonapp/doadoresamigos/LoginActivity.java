@@ -3,8 +3,6 @@ package com.jsonapp.doadoresamigos;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.view.View;
@@ -15,9 +13,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.jsonapp.doadoresamigos.autenticacao.AutenticacaoDal;
 import com.jsonapp.doadoresamigos.autenticacao.AutenticacaoUsuario;
 import com.jsonapp.doadoresamigos.autenticacao.ContaDto;
-import com.jsonapp.doadoresamigos.autenticacao.ContaRepositorio;
 import com.jsonapp.doadoresamigos.autenticacao.ContaRepositorioImpl;
-import com.jsonapp.doadoresamigos.gestaodoadores.DoadorDto;
 
 public class LoginActivity extends AppCompatActivity implements AutenticacaoDal {
 
@@ -45,7 +41,7 @@ public class LoginActivity extends AppCompatActivity implements AutenticacaoDal 
         btnInicioSessao.setOnClickListener(iniciarSessaoListener);
         btnNovoDoador.setOnClickListener(criarNovoDoadorListener);
 
-        autenticacaoUsuario = new AutenticacaoUsuario(this, new ContaRepositorioImpl());
+        autenticacaoUsuario = new AutenticacaoUsuario(this, new ContaRepositorioImpl(getBaseContext()));
     }
 
     View.OnClickListener iniciarSessaoListener = new View.OnClickListener() {
@@ -59,8 +55,8 @@ public class LoginActivity extends AppCompatActivity implements AutenticacaoDal 
     View.OnClickListener criarNovoDoadorListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            CadastroDialog cadastroDialog = CadastroDialog.newInstance();
-            cadastroDialog.openDialog(getSupportFragmentManager());
+            CadastroContaDialog cadastroContaDialog = CadastroContaDialog.newInstance();
+            cadastroContaDialog.openDialog(getSupportFragmentManager());
         }
     };
 

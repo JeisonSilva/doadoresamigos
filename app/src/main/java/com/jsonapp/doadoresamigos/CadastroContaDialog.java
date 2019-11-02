@@ -18,7 +18,7 @@ import com.jsonapp.doadoresamigos.autenticacao.ContaRepositorioImpl;
 import com.jsonapp.doadoresamigos.autenticacao.NovaConta;
 import com.jsonapp.doadoresamigos.autenticacao.NovaContaDal;
 
-public class CadastroDialog extends AppCompatDialogFragment implements NovaContaDal {
+public class CadastroContaDialog extends AppCompatDialogFragment implements NovaContaDal {
 
     private static final String DIALOG_TAG    = "cadastroUsuarioDialog";
     private TextInputLayout inputTextUsuario;
@@ -31,16 +31,16 @@ public class CadastroDialog extends AppCompatDialogFragment implements NovaConta
     private TextInputLayout inputTextConfirmacao;
     private TextInputEditText inputEditConfirmacao;
 
-    public static CadastroDialog newInstance(Bundle args) {
+    public static CadastroContaDialog newInstance(Bundle args) {
 
-        CadastroDialog fragment = new CadastroDialog();
+        CadastroContaDialog fragment = new CadastroContaDialog();
         fragment.setArguments(args);
         return fragment;
     }
 
-    public static CadastroDialog newInstance() {
+    public static CadastroContaDialog newInstance() {
 
-        CadastroDialog fragment = new CadastroDialog();
+        CadastroContaDialog fragment = new CadastroContaDialog();
         return fragment;
     }
 
@@ -59,7 +59,7 @@ public class CadastroDialog extends AppCompatDialogFragment implements NovaConta
 
         btnRegistrar.setOnClickListener(registrarListener);
         btnCancelar.setOnClickListener(cancelarListener);
-        novaConta = new NovaConta(this, new ContaRepositorioImpl());
+        novaConta = new NovaConta(this, new ContaRepositorioImpl(getContext()));
 
         return view;
     }
