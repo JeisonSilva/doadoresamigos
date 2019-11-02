@@ -55,8 +55,8 @@ public class ContaRepositorioImpl extends SQLiteOpenHelper implements ContaRepos
             conta.setUsuario(usuario);
             conta.setSenha(senha);
         }
-
         c.close();
+        sqLiteDatabase.close();
         return conta;
     }
 
@@ -72,6 +72,7 @@ public class ContaRepositorioImpl extends SQLiteOpenHelper implements ContaRepos
                         CAMPO_USUARIO + " TEXT NOT NULL, " +
                         CAMPO_SENHA + " TEXT NOT NULL" +
                         ")");
+        sqLiteDatabase.close();
     }
 
     @Override

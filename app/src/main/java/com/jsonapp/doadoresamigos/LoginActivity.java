@@ -4,7 +4,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -81,7 +83,12 @@ public class LoginActivity extends AppCompatActivity implements AutenticacaoDal 
 
     @Override
     public void exibirPesquisaDoadores() {
-        Toast.makeText(this, "Ainda não integramos com pesquisa doador", Toast.LENGTH_LONG).show();
+        try{
+            Intent intent = new Intent(this, PesquisaDoadorActivity.class);
+            startActivity(intent);
+        }catch (Exception e){
+            Log.e("LoginActivity", e.getMessage());
+        }
     }
 
     @Override
