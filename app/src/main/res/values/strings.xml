@@ -6,4 +6,5 @@
     <string name="hint_usuario">Usuário</string>
     <string name="hint_senha">Senha</string>
     <string name="hint_confirmacao_senha">Confirmação da senha</string>
+    <string name="hint_titulo_pesquisa_doador">ID do doador</string>
 </resources>

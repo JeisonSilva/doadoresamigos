@@ -19,7 +19,7 @@ public class PesquisaDoadorActivity extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
         search = findViewById(R.id.search);
-        search.setQueryHint("ID do doador");
+        search.setQueryHint(getString(R.string.hint_titulo_pesquisa_doador));
         search.setActivated(true);
         search.onActionViewExpanded();
         search.setIconified(false);
