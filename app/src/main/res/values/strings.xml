@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">DoadoresAmigos</string>
+    <string name="slogam_bem_vindo">Bem-Vindo ao Controle de Doadores</string>
+    <string name="slogam_orientacao_login">Faça o login para começar</string>
+    <string name="btn_sessao_usuario">INICIAR SESSÃO</string>
+    <string name="hint_usuario">Usuário</string>
+    <string name="hint_senha">Senha</string>
+    <string name="hint_confirmacao_senha">Confirmação da senha</string>
 </resources>

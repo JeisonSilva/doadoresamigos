@@ -12,18 +12,24 @@ public class AutenticacaoUsuario {
     public void autenticar() {
         ContaDto dadosDigitadosPeloUsuario = this.autenticacaoDal.obterDadosUsuario();
         ContaDto contaExistente = this.contaRepositorio.obterConta(dadosDigitadosPeloUsuario);
-        Conta conta = new Conta(contaExistente.getUsuario(), contaExistente.getSenha());
 
-        if(!conta.confirmarUsuario(dadosDigitadosPeloUsuario.getUsuario())){
-            this.autenticacaoDal.notificarUsuarioInvalido();
-            return;
+        if(contaExistente.getUsuario().isEmpty() && contaExistente.getSenha().isEmpty())
+            this.autenticacaoDal.notificarUsuarioNaoCadastrado();
+        else{
+            Conta conta = new Conta(contaExistente.getUsuario(), contaExistente.getSenha());
+
+            if(!conta.confirmarUsuario(dadosDigitadosPeloUsuario.getUsuario())){
+                this.autenticacaoDal.notificarUsuarioInvalido();
+                return;
+            }
+
+            if(!conta.ConfirmarSenha(dadosDigitadosPeloUsuario.getSenha())){
+                this.autenticacaoDal.notificarSenhaInvalida();
+                return;
+            }
+
+            this.autenticacaoDal.exibirPesquisaDoadores();
         }
 
-        if(!conta.ConfirmarSenha(dadosDigitadosPeloUsuario.getSenha())){
-            this.autenticacaoDal.notificarSenhaInvalida();
-            return;
-        }
-
-        this.autenticacaoDal.exibirPesquisaDoadores();
     }
 }

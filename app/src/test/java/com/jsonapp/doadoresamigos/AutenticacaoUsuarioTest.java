@@ -78,4 +78,18 @@ public class AutenticacaoUsuarioTest {
 
         verify(this.autenticacaoDal).notificarSenhaInvalida();
     }
+
+    @Test
+    public void naoDeveAutenticarUsuarioQueNaoExiste(){
+        ContaDto contaDto = new ContaDto();
+        contaDto.setUsuario("Elena");
+        contaDto.setSenha("12345");
+        contaDto.setConfirmacaoSenha("12345");
+        when(this.autenticacaoDal.obterDadosUsuario()).thenReturn(contaDto);
+        when(this.contaRepositorio.obterConta(Mockito.any(ContaDto.class))).thenReturn(null);
+
+        this.autenticacaoUsuario.autenticar();
+
+        verify(this.autenticacaoDal).notificarUsuarioNaoCadastrado();
+    }
 }
