@@ -7,5 +7,5 @@ public interface DoadorRepositorio {
 
     void registrar(DoadorDto doadorDto);
 
-    Void alterar(DoadorDto doadorDto);
+    void alterar(DoadorDto doadorDto);
 }

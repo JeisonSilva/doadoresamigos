@@ -1,21 +1,19 @@
 package com.jsonapp.doadoresamigos.gestaodoadores;
 
 public class RegistroDoador {
-    private final RegistroDoadorDal registroDoadorDal;
+    private final DoadorDal doadorDal;
     private final DoadorRepositorio doadorRepositorio;
 
-    public RegistroDoador(RegistroDoadorDal registroDoadorDal, DoadorRepositorio doadorRepositorio) {
-        this.registroDoadorDal = registroDoadorDal;
+    public RegistroDoador(DoadorDal doadorDal, DoadorRepositorio doadorRepositorio) {
+        this.doadorDal = doadorDal;
         this.doadorRepositorio = doadorRepositorio;
     }
 
     public void registrar() {
-        DoadorDto dadosInformadosPeloUsuario = this.registroDoadorDal.obterDadosInformadosPeloUsuario();
-        Doador doador = DoadorConvert.converter(dadosInformadosPeloUsuario);
-
-        if(DoadorValidation.isValid(doador))
+        if(this.doadorDal.validarPreenchimentoDados()){
+            DoadorDto dadosInformadosPeloUsuario = this.doadorDal.obterDadosInformadosPeloUsuario();
             this.doadorRepositorio.registrar(dadosInformadosPeloUsuario);
-        else
-            this.registroDoadorDal.notificarDadosInvalidos();
+            this.doadorDal.finalizarCadastro();
+        }
     }
 }

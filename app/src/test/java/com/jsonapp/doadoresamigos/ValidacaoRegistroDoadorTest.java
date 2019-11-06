@@ -3,7 +3,7 @@ package com.jsonapp.doadoresamigos;
 import com.jsonapp.doadoresamigos.gestaodoadores.DoadorDto;
 import com.jsonapp.doadoresamigos.gestaodoadores.DoadorRepositorio;
 import com.jsonapp.doadoresamigos.gestaodoadores.RegistroDoador;
-import com.jsonapp.doadoresamigos.gestaodoadores.RegistroDoadorDal;
+import com.jsonapp.doadoresamigos.gestaodoadores.DoadorDal;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,14 +27,14 @@ public class ValidacaoRegistroDoadorTest {
 
     @Test
     public void deveNotificarDadosInvalidosParaDadosNaoInformados(){
-        RegistroDoadorDal registroDoadorDal = Mockito.mock(RegistroDoadorDal.class);
+        DoadorDal doadorDal = Mockito.mock(DoadorDal.class);
         DoadorRepositorio doadorRepositorio = Mockito.mock(DoadorRepositorio.class);
-        RegistroDoador registroDoador = new RegistroDoador(registroDoadorDal, doadorRepositorio);
-        when(registroDoadorDal.obterDadosInformadosPeloUsuario()).thenReturn(this.doadorDtoValidacaoDados);
+        RegistroDoador registroDoador = new RegistroDoador(doadorDal, doadorRepositorio);
+        when(doadorDal.obterDadosInformadosPeloUsuario()).thenReturn(this.doadorDtoValidacaoDados);
 
         registroDoador.registrar();
 
-        verify(registroDoadorDal).notificarDadosInvalidos();
+        verify(doadorDal).notificarDadosInvalidos();
     }
 
     @Parameterized.Parameters

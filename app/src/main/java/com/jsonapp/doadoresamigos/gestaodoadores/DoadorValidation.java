@@ -45,7 +45,7 @@ class DoadorValidation {
         if(estadoFisico.getAltura() == 0)
             return false;
 
-        if(estadoFisico.getPeso() == null)
+        if(estadoFisico.getPeso() == 0)
             return false;
 
         return true;
