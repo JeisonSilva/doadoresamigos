@@ -130,7 +130,7 @@ public class DoadorRepositorioImpl implements DoadorRepositorio {
 
         }while (cursor.moveToNext());
 
-        return null;
+        return doadores;
     }
 
     private ContentValues gerarValoresParaGravarDados(DoadorDto doadorDto) {
