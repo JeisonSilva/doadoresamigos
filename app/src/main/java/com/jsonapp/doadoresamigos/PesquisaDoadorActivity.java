@@ -13,6 +13,8 @@ import com.jsonapp.doadoresamigos.gestaodoadores.DoadorRepositorioImpl;
 import com.jsonapp.doadoresamigos.gestaodoadores.PesquisaDoador;
 import com.jsonapp.doadoresamigos.gestaodoadores.PesquisaDoadorDal;
 
+import java.util.ArrayList;
+
 public class PesquisaDoadorActivity extends AppCompatActivity implements PesquisaDoadorDal {
 
     private Toolbar toolbar;
@@ -83,5 +85,10 @@ public class PesquisaDoadorActivity extends AppCompatActivity implements Pesquis
     @Override
     public void notificarUsuarioDeCodigoDoadorInvalido() {
 
+    }
+
+    @Override
+    public void exibirDoadores(ArrayList<DoadorDto> doadores) {
+        
     }
 }
