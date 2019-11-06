@@ -4,53 +4,52 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.print.PrinterId;
 
-import com.jsonapp.doadoresamigos.utils.BaseRepositorio;
+import com.jsonapp.doadoresamigos.utils.SqliteHelper;
+import com.jsonapp.doadoresamigos.utils.TabelaConta;
 
-public class ContaRepositorioImpl extends BaseRepositorio implements ContaRepositorio {
-    private static final String CAMPO_USUARIO = "USUARIO";
-    private static final String CAMPO_SENHA = "SENHA";
-    private static final String TABELA = "CONTA";
+public class ContaRepositorioImpl implements ContaRepositorio {
+
+
+    private final SqliteHelper sqliteHelper;
 
     public ContaRepositorioImpl(Context context) {
-        super(context);
+        sqliteHelper = new SqliteHelper(context);
     }
 
     @Override
     public void registrar(ContaDto contaDto) {
-        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        SQLiteDatabase sqLiteDatabase = sqliteHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(CAMPO_USUARIO, contaDto.getUsuario());
-        values.put(CAMPO_SENHA, contaDto.getSenha());
-        sqLiteDatabase.insert(TABELA, null, values);
+        values.put(TabelaConta.CAMPO_USUARIO, contaDto.getUsuario());
+        values.put(TabelaConta.CAMPO_SENHA, contaDto.getSenha());
+        sqLiteDatabase.insert(TabelaConta.TABELA, null, values);
         sqLiteDatabase.close();
     }
 
     @Override
     public void alterar(ContaDto contaDto) {
-        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        SQLiteDatabase sqLiteDatabase = sqliteHelper.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(CAMPO_USUARIO, contaDto.getUsuario());
-        values.put(CAMPO_SENHA, contaDto.getSenha());
-        sqLiteDatabase.update(TABELA, values, "USUARIO=?", new String[]{contaDto.getUsuario()});
+        values.put(TabelaConta.CAMPO_USUARIO, contaDto.getUsuario());
+        values.put(TabelaConta.CAMPO_SENHA, contaDto.getSenha());
+        sqLiteDatabase.update(TabelaConta.TABELA, values, "USUARIO=?", new String[]{contaDto.getUsuario()});
         sqLiteDatabase.close();
     }
 
     @Override
     public ContaDto obterConta(ContaDto contaDto) {
-        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        SQLiteDatabase sqLiteDatabase = sqliteHelper.getReadableDatabase();
         ContaDto conta = new ContaDto();
 
-        Cursor c = sqLiteDatabase.query(TABELA, new String[]{CAMPO_USUARIO, CAMPO_SENHA}, "USUARIO=?",
+        Cursor c = sqLiteDatabase.query(TabelaConta.TABELA, new String[]{TabelaConta.CAMPO_USUARIO, TabelaConta.CAMPO_SENHA}, "USUARIO=?",
                 new String[]{contaDto.getUsuario()}, null, null, null);
 
         if(c.moveToFirst()){
-            String usuario = c.getString(c.getColumnIndex(CAMPO_USUARIO));
-            String senha = c.getString(c.getColumnIndex(CAMPO_SENHA));
+            String usuario = c.getString(c.getColumnIndex(TabelaConta.CAMPO_USUARIO));
+            String senha = c.getString(c.getColumnIndex(TabelaConta.CAMPO_SENHA));
             conta.setUsuario(usuario);
             conta.setSenha(senha);
         }
@@ -61,20 +60,6 @@ public class ContaRepositorioImpl extends BaseRepositorio implements ContaReposi
 
     @Override
     public void excluirConta(ContaDto contaDto) {
-
-    }
-
-    @Override
-    public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL(
-                "CREATE TABLE IF NOT EXISTS " + TABELA + "(" +
-                        CAMPO_USUARIO + " TEXT NOT NULL, " +
-                        CAMPO_SENHA + " TEXT NOT NULL" +
-                        ")");
-    }
-
-    @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
     }
 }

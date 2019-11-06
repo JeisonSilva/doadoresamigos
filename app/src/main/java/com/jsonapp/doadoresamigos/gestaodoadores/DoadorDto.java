@@ -7,7 +7,7 @@ public class DoadorDto {
     private Integer idade;
     private String fatorRh;
     private String tipoDeSangue;
-    private Integer peso;
+    private double peso;
     private double altura;
 
     public String getNome() {
@@ -50,11 +50,11 @@ public class DoadorDto {
         this.tipoDeSangue = tipoDeSangue;
     }
 
-    public Integer getPeso() {
+    public double getPeso() {
         return peso;
     }
 
-    public void setPeso(Integer peso) {
+    public void setPeso(double peso) {
         this.peso = peso;
     }
 

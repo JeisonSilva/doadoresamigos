@@ -3,18 +3,12 @@ package com.jsonapp.doadoresamigos;
 import com.jsonapp.doadoresamigos.gestaodoadores.DoadorDto;
 import com.jsonapp.doadoresamigos.gestaodoadores.DoadorRepositorio;
 import com.jsonapp.doadoresamigos.gestaodoadores.RegistroDoador;
-import com.jsonapp.doadoresamigos.gestaodoadores.RegistroDoadorDal;
+import com.jsonapp.doadoresamigos.gestaodoadores.DoadorDal;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-
-import java.util.Arrays;
-import java.util.Collection;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -22,7 +16,7 @@ import static org.mockito.Mockito.when;
 public class RegistroDoadorTest {
 
     private RegistroDoador registroDoador;
-    private RegistroDoadorDal registroDoadorDal;
+    private DoadorDal doadorDal;
     private DoadorRepositorio doadorRepositorio;
     private DoadorDto doadorDto;
 
@@ -39,15 +33,15 @@ public class RegistroDoadorTest {
         doadorDto.setPeso(68);
         doadorDto.setAltura(1.68);
 
-        this.registroDoadorDal = Mockito.mock(RegistroDoadorDal.class);
+        this.doadorDal = Mockito.mock(DoadorDal.class);
         this.doadorRepositorio = Mockito.mock(DoadorRepositorio.class);
-        this.registroDoador = new RegistroDoador(this.registroDoadorDal, this.doadorRepositorio);
+        this.registroDoador = new RegistroDoador(this.doadorDal, this.doadorRepositorio);
         MockitoAnnotations.initMocks(this);
     }
 
     @Test
     public void deveRegistrarDoador(){
-        when(this.registroDoadorDal.obterDadosInformadosPeloUsuario()).thenReturn(this.doadorDto);
+        when(this.doadorDal.obterDadosInformadosPeloUsuario()).thenReturn(this.doadorDto);
 
         this.registroDoador.registrar();
 

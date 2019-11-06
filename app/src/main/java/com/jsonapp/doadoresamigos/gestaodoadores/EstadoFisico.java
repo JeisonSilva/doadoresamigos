@@ -1,15 +1,15 @@
 package com.jsonapp.doadoresamigos.gestaodoadores;
 
 final class EstadoFisico {
-    private Integer peso;
+    private double peso;
     private double altura;
 
-    public EstadoFisico(Integer peso, double altura) {
+    public EstadoFisico(double peso, double altura) {
         this.peso = peso;
         this.altura = altura;
     }
 
-    public Integer getPeso() {
+    public double getPeso() {
         return peso;
     }
 

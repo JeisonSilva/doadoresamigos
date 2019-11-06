@@ -22,6 +22,7 @@
         android:textAlignment="center" />
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputTextNumeroIdentificador"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -30,11 +31,15 @@
         android:hint="@string/cadastro_doador_n_identificador">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputEditNumeroIdentificador"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:singleLine="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputTextNome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -43,11 +48,14 @@
         android:hint="@string/cadastro_doador_nome">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputEditNome"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:singleLine="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputTextSobrenome"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -56,11 +64,14 @@
         android:hint="@string/cadastro_doador_sobrenome">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputEditSobrenome"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:singleLine="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/inputTextIdade"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -69,8 +80,11 @@
         android:hint="@string/cadastro_doador_idade">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputEditIdade"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:singleLine="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -80,16 +94,16 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp">
 
-        <Spinner
+        <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/spinnerTipoSanguineo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:entries="@array/tipossanguineos"
             app:layout_constraintBaseline_toBaselineOf="@+id/spinnerFatorRh"
-            app:layout_constraintStart_toStartOf="parent"></Spinner>
+            app:layout_constraintStart_toStartOf="parent"/>
 
-        <Spinner
+        <androidx.appcompat.widget.AppCompatSpinner
             android:id="@+id/spinnerFatorRh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -99,7 +113,7 @@
             android:entries="@array/fatorh"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"></Spinner>
+            app:layout_constraintTop_toTopOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -123,8 +137,11 @@
             app:layout_constraintVertical_bias="0.51">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputEditPeso"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -139,8 +156,11 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputEditAltura"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:singleLine="true" />
         </com.google.android.material.textfield.TextInputLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
