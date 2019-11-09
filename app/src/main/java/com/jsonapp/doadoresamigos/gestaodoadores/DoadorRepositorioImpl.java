@@ -60,17 +60,8 @@ public class DoadorRepositorioImpl implements DoadorRepositorio {
     @Override
     public void excluir(DoadorDto doadorDto) {
         SQLiteDatabase sqLiteDatabase = sqliteHelper.getWritableDatabase();
-
-        try{
-            sqLiteDatabase.beginTransaction();
-            ContentValues values = gerarValoresParaGravarDados(doadorDto);
-            sqLiteDatabase.delete(TABELA, CAMPO_ID + "=?", new String[]{String.valueOf(doadorDto.getCodigo())});
-        }catch (Exception ex){
-            sqLiteDatabase.close();
-        }finally {
-            sqLiteDatabase.endTransaction();
-            sqLiteDatabase.close();
-        }
+        sqLiteDatabase.delete(TABELA, CAMPO_ID + "=?", new String[]{String.valueOf(doadorDto.getCodigo())});
+        sqLiteDatabase.close();
     }
 
     @Override
@@ -113,7 +104,8 @@ public class DoadorRepositorioImpl implements DoadorRepositorio {
                 CAMPO_ALTURA};
 
         Cursor cursor = sqLiteDatabase.query(TABELA, colunas, null, null, null, null, null);
-        cursor.moveToFirst();
+        if(!cursor.moveToFirst())
+            return new ArrayList<>(0);
 
         do {
             DoadorDto doadorDto = new DoadorDto();

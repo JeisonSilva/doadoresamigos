@@ -3,6 +3,7 @@ package com.jsonapp.doadoresamigos.adapters;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,6 +15,8 @@ public class DoadorViewHolder extends RecyclerView.ViewHolder {
     public final AppCompatTextView textViewIdade;
     public final AppCompatTextView textViewTipoDeSangue;
     public final AppCompatTextView textViewCondicoesFisicas;
+    public final AppCompatImageView imgViewEdit;
+    public final AppCompatImageView imgViewDelete;
 
     public DoadorViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -23,6 +26,8 @@ public class DoadorViewHolder extends RecyclerView.ViewHolder {
         textViewIdade = itemView.findViewById(R.id.textViewIdade);
         textViewTipoDeSangue = itemView.findViewById(R.id.textViewDadosSanguineos);
         textViewCondicoesFisicas = itemView.findViewById(R.id.textViewPesoAltura);
+        imgViewEdit = itemView.findViewById(R.id.imgViewEdit);
+        imgViewDelete = itemView.findViewById(R.id.imgViewDelete);
 
     }
 }

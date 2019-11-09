@@ -1,5 +1,7 @@
 package com.jsonapp.doadoresamigos.gestaodoadores;
 
+import java.util.ArrayList;
+
 public class ExclusaoDoador {
     private final ExclusaoDoadorDal exclusaoDoadorDal;
     private final DoadorRepositorio doadorRepositorio;
@@ -24,6 +26,9 @@ public class ExclusaoDoador {
         }
 
         this.doadorRepositorio.excluir(doadorDto);
+
+        ArrayList<DoadorDto> doadores = this.doadorRepositorio.listarDoadores();
+        this.exclusaoDoadorDal.exibirNovaLista(doadores);
 
     }
 }
