@@ -17,6 +17,7 @@ public class PesquisaDoador {
 
         if(codDoador == 0){
             this.pesquisaDoadorDal.notificarUsuarioDeCodigoDoadorInvalido();
+            this.exibirDoadores();
             return;
         }
 

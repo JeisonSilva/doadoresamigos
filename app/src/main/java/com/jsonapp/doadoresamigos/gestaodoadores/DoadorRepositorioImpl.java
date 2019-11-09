@@ -30,7 +30,15 @@ public class DoadorRepositorioImpl implements DoadorRepositorio {
     @Override
     public DoadorDto pesquisarPorCodigo(Integer codDoador) {
         SQLiteDatabase sqLiteDatabase = sqliteHelper.getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.query( TABELA, new String[]{CAMPO_ID}, CAMPO_ID + "=?", new String[]{String.valueOf(codDoador)}, null, null, null);
+        Cursor cursor = sqLiteDatabase.query( TABELA, new String[]{
+                CAMPO_ID,
+                CAMPO_NOME,
+                CAMPO_SOBRENOME,
+                CAMPO_IDADE,
+                CAMPO_FATOR_RH,
+                CAMPO_TIPO_SANGUINEO,
+                CAMPO_PESO,
+                CAMPO_ALTURA}, CAMPO_ID + "=?", new String[]{String.valueOf(codDoador)}, null, null, null);
 
         if(cursor.moveToFirst()){
             DoadorDto doadorDto = new DoadorDto();

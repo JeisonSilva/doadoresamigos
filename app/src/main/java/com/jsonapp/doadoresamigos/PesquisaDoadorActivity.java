@@ -1,5 +1,6 @@
 package com.jsonapp.doadoresamigos;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
@@ -26,6 +27,7 @@ public class PesquisaDoadorActivity extends AppCompatActivity implements Pesquis
     private FloatingActionButton fbAddDoador;
     private PesquisaDoador pesquisaDoador;
     private RecyclerView rvDoadores;
+    private String codigoDoador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,41 +73,64 @@ public class PesquisaDoadorActivity extends AppCompatActivity implements Pesquis
     SearchView.OnQueryTextListener queryListener = new SearchView.OnQueryTextListener() {
         @Override
         public boolean onQueryTextSubmit(String query) {
+            codigoDoador = query;
+            pesquisaDoador.pesquisarDoadorPorCodigo();
             return false;
         }
 
         @Override
         public boolean onQueryTextChange(String newText) {
+
+            if(newText.isEmpty())
+                pesquisaDoador.exibirDoadores();
             return false;
         }
     };
 
     @Override
     public void exibirDoador(DoadorDto doadorDto) {
+        ArrayList<DoadorDto> doadores = new ArrayList<>(1);
+        doadores.add(doadorDto);
 
+        exibirListaDoadores(doadores);
     }
 
     @Override
     public Integer obterCodigoPesquisa() {
-        return null;
+        if(codigoDoador.isEmpty())
+            return 0;
+
+        return Integer.valueOf(codigoDoador);
     }
 
     @Override
     public void notificarUsuarioDePesquisaSemRetornoDeDados() {
-
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Atenção");
+        builder.setMessage(R.string.alertdialog_nao_ha_registro);
+        builder.setIcon(R.mipmap.ic_alert_atencao);
+        builder.create().show();
     }
 
     @Override
     public void notificarUsuarioDeCodigoDoadorInvalido() {
-
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Atenção");
+        builder.setMessage(R.string.alertdialog_nao_existe_doador);
+        builder.setIcon(R.mipmap.ic_alert_atencao);
+        builder.create().show();
     }
 
     @Override
     public void exibirDoadores(ArrayList<DoadorDto> doadores) {
+        exibirListaDoadores(doadores);
+    }
+
+    private void exibirListaDoadores(ArrayList<DoadorDto> doadores) {
         DoadorAdapter adapter = new DoadorAdapter(doadores);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        rvDoadores.setLayoutManager(layoutManager);
 
+        rvDoadores.setLayoutManager(layoutManager);
         rvDoadores.setAdapter(adapter);
     }
 }
