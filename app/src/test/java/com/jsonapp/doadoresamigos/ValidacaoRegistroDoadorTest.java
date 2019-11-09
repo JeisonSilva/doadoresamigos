@@ -31,6 +31,7 @@ public class ValidacaoRegistroDoadorTest {
         DoadorRepositorio doadorRepositorio = Mockito.mock(DoadorRepositorio.class);
         RegistroDoador registroDoador = new RegistroDoador(doadorDal, doadorRepositorio);
         when(doadorDal.obterDadosInformadosPeloUsuario()).thenReturn(this.doadorDtoValidacaoDados);
+        when(doadorDal.validarPreenchimentoDados()).thenReturn(false);
 
         registroDoador.registrar();
 

@@ -16,6 +16,8 @@
     <string name="cadastro_doador_altura">Altura (cm)</string>
     <string name="btn_cancelar">CANCELAR</string>
     <string name="btn_registrar">REGISTRAR</string>
+    <string name="alertdialog_nao_ha_registro">Não há registros com este código</string>
+    <string name="alertdialog_nao_existe_doador">Não existe doador com este código</string>
 
     <string-array name="tipossanguineos">
         <item>Tipo de Sangue</item>

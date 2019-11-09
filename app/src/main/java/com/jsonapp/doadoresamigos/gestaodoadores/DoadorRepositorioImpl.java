@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.jsonapp.doadoresamigos.utils.SqliteHelper;
 
+import java.util.ArrayList;
+
 import static com.jsonapp.doadoresamigos.utils.TabelaDoador.CAMPO_ALTURA;
 import static com.jsonapp.doadoresamigos.utils.TabelaDoador.CAMPO_FATOR_RH;
 import static com.jsonapp.doadoresamigos.utils.TabelaDoador.CAMPO_ID;
@@ -28,7 +30,15 @@ public class DoadorRepositorioImpl implements DoadorRepositorio {
     @Override
     public DoadorDto pesquisarPorCodigo(Integer codDoador) {
         SQLiteDatabase sqLiteDatabase = sqliteHelper.getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.query( TABELA, new String[]{CAMPO_ID}, CAMPO_ID + "=?", new String[]{String.valueOf(codDoador)}, null, null, null);
+        Cursor cursor = sqLiteDatabase.query( TABELA, new String[]{
+                CAMPO_ID,
+                CAMPO_NOME,
+                CAMPO_SOBRENOME,
+                CAMPO_IDADE,
+                CAMPO_FATOR_RH,
+                CAMPO_TIPO_SANGUINEO,
+                CAMPO_PESO,
+                CAMPO_ALTURA}, CAMPO_ID + "=?", new String[]{String.valueOf(codDoador)}, null, null, null);
 
         if(cursor.moveToFirst()){
             DoadorDto doadorDto = new DoadorDto();
@@ -87,6 +97,48 @@ public class DoadorRepositorioImpl implements DoadorRepositorio {
             sqLiteDatabase.endTransaction();
             sqLiteDatabase.close();
         }
+    }
+
+    @Override
+    public ArrayList<DoadorDto> listarDoadores() {
+        ArrayList<DoadorDto> doadores = new ArrayList<>();
+        SQLiteDatabase sqLiteDatabase = sqliteHelper.getReadableDatabase();
+        String[] colunas = {
+                CAMPO_NOME,
+                CAMPO_ID,
+                CAMPO_IDADE,
+                CAMPO_TIPO_SANGUINEO,
+                CAMPO_FATOR_RH,
+                CAMPO_PESO,
+                CAMPO_ALTURA};
+
+        Cursor cursor = sqLiteDatabase.query(TABELA, colunas, null, null, null, null, null);
+        cursor.moveToFirst();
+
+        do {
+            DoadorDto doadorDto = new DoadorDto();
+
+            String nome = cursor.getString(cursor.getColumnIndex(CAMPO_NOME));
+            Integer codigoDoador = cursor.getInt(cursor.getColumnIndex(CAMPO_ID));
+            Integer idade = cursor.getInt(cursor.getColumnIndex(CAMPO_IDADE));
+            String tipoSanguineo = cursor.getString(cursor.getColumnIndex(CAMPO_TIPO_SANGUINEO));
+            String fatorRh = cursor.getString(cursor.getColumnIndex(CAMPO_FATOR_RH));
+            double peso = cursor.getInt(cursor.getColumnIndex(CAMPO_PESO));
+            double altura = cursor.getInt(cursor.getColumnIndex(CAMPO_ALTURA));
+
+            doadorDto.setNome(nome);
+            doadorDto.setCodigo(codigoDoador);
+            doadorDto.setIdade(idade);
+            doadorDto.setTipoDeSangue(tipoSanguineo);
+            doadorDto.setFatorRh(fatorRh);
+            doadorDto.setPeso(peso);
+            doadorDto.setAltura(altura);
+
+            doadores.add(doadorDto);
+
+        }while (cursor.moveToNext());
+
+        return doadores;
     }
 
     private ContentValues gerarValoresParaGravarDados(DoadorDto doadorDto) {

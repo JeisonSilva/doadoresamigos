@@ -1,5 +1,7 @@
 package com.jsonapp.doadoresamigos.gestaodoadores;
 
+import java.util.ArrayList;
+
 public class PesquisaDoador {
     private final PesquisaDoadorDal pesquisaDoadorDal;
     private final DoadorRepositorio doadorRepositorio;
@@ -15,6 +17,7 @@ public class PesquisaDoador {
 
         if(codDoador == 0){
             this.pesquisaDoadorDal.notificarUsuarioDeCodigoDoadorInvalido();
+            this.exibirDoadores();
             return;
         }
 
@@ -24,5 +27,10 @@ public class PesquisaDoador {
         }
 
         this.pesquisaDoadorDal.exibirDoador(doadorDto);
+    }
+
+    public void exibirDoadores() {
+        ArrayList<DoadorDto> doadores = this.doadorRepositorio.listarDoadores();
+        this.pesquisaDoadorDal.exibirDoadores(doadores);
     }
 }

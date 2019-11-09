@@ -14,6 +14,8 @@ public class RegistroDoador {
             DoadorDto dadosInformadosPeloUsuario = this.doadorDal.obterDadosInformadosPeloUsuario();
             this.doadorRepositorio.registrar(dadosInformadosPeloUsuario);
             this.doadorDal.finalizarCadastro();
+        }else{
+            this.doadorDal.notificarDadosInvalidos();
         }
     }
 }

@@ -32,7 +32,7 @@ public class NovaConta {
             return false;
         }
 
-        if(!conta.confirmarUsuario(contaDto.getConfirmacaoSenha())){
+        if(!conta.ConfirmarSenha(contaDto.getConfirmacaoSenha())){
             this.novaContaDal.notificarConfirmacaoSenhaInvalida();
             return false;
         }

@@ -47,22 +47,6 @@ public class AutenticacaoUsuarioTest {
     }
 
     @Test
-    public void naoDeveAutenticarUsuarioInvalido(){
-        ContaDto contaDto = new ContaDto();
-        ContaDto contaDto2 = new ContaDto();
-        contaDto.setUsuario("Elena");
-        contaDto.setSenha("12345");
-        contaDto.setConfirmacaoSenha("12345");
-        contaDto2.setUsuario("");
-        when(this.autenticacaoDal.obterDadosUsuario()).thenReturn(contaDto);
-        when(this.contaRepositorio.obterConta(Mockito.any(ContaDto.class))).thenReturn(contaDto2);
-
-        this.autenticacaoUsuario.autenticar();
-
-        verify(this.autenticacaoDal).notificarUsuarioInvalido();
-    }
-
-    @Test
     public void naoDeveAutenticarSenhaInvalida(){
         ContaDto contaDto = new ContaDto();
         ContaDto contaDto2 = new ContaDto();
