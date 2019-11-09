@@ -42,7 +42,7 @@ public class RegistroDoadorTest {
     @Test
     public void deveRegistrarDoador(){
         when(this.doadorDal.obterDadosInformadosPeloUsuario()).thenReturn(this.doadorDto);
-
+        when(this.doadorDal.validarPreenchimentoDados()).thenReturn(true);
         this.registroDoador.registrar();
 
         verify(this.doadorRepositorio).registrar(Mockito.any(DoadorDto.class));

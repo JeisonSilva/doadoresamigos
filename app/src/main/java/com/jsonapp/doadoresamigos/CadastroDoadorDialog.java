@@ -16,7 +16,6 @@ import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.jsonapp.doadoresamigos.gestaodoadores.AlteracaoDoadorDal;
 import com.jsonapp.doadoresamigos.gestaodoadores.DoadorDto;
 import com.jsonapp.doadoresamigos.gestaodoadores.DoadorRepositorioImpl;
 import com.jsonapp.doadoresamigos.gestaodoadores.PesquisaDoador;
@@ -24,7 +23,7 @@ import com.jsonapp.doadoresamigos.gestaodoadores.PesquisaDoadorDal;
 import com.jsonapp.doadoresamigos.gestaodoadores.RegistroDoador;
 import com.jsonapp.doadoresamigos.gestaodoadores.DoadorDal;
 
-public class CadastroDoadorDialog extends AppCompatDialogFragment implements DoadorDal, AlteracaoDoadorDal {
+public class CadastroDoadorDialog extends AppCompatDialogFragment implements DoadorDal {
 
     private static final String DIALOG_TAG = "cadastroDoadorDialog";
     private TextInputLayout inputTextNumeroIdentificador;
