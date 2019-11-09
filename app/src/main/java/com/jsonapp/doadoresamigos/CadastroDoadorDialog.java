@@ -1,5 +1,6 @@
 package com.jsonapp.doadoresamigos;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,8 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.jsonapp.doadoresamigos.gestaodoadores.AlteracaoDoadorDal;
 import com.jsonapp.doadoresamigos.gestaodoadores.DoadorDto;
 import com.jsonapp.doadoresamigos.gestaodoadores.DoadorRepositorioImpl;
+import com.jsonapp.doadoresamigos.gestaodoadores.PesquisaDoador;
+import com.jsonapp.doadoresamigos.gestaodoadores.PesquisaDoadorDal;
 import com.jsonapp.doadoresamigos.gestaodoadores.RegistroDoador;
 import com.jsonapp.doadoresamigos.gestaodoadores.DoadorDal;
 
@@ -41,6 +44,7 @@ public class CadastroDoadorDialog extends AppCompatDialogFragment implements Doa
     private AppCompatButton btnRegistro;
     private AppCompatButton btnCancelamento;
     private RegistroDoador registroDoador;
+    private PesquisaDoador pesquisaDoador;
 
     public static CadastroDoadorDialog newInstance() {
         CadastroDoadorDialog fragment = new CadastroDoadorDialog();
@@ -71,7 +75,9 @@ public class CadastroDoadorDialog extends AppCompatDialogFragment implements Doa
 
         btnRegistro = view.findViewById(R.id.btnRegistrar);
         btnCancelamento = view.findViewById(R.id.btnCancelar);
+
         btnRegistro.setOnClickListener(registrarListener);
+        btnCancelamento.setOnClickListener(cancelarListener);
 
         registroDoador = new RegistroDoador(this, new DoadorRepositorioImpl(view.getContext()));
 
@@ -85,9 +91,23 @@ public class CadastroDoadorDialog extends AppCompatDialogFragment implements Doa
         }
     };
 
+    View.OnClickListener cancelarListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            pesquisaDoador.exibirDoadores();
+            dismiss();
+        }
+    };
+
     public void openDialog(FragmentManager fm){
         if(fm.findFragmentByTag(DIALOG_TAG) == null)
             show(fm, DIALOG_TAG);
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        pesquisaDoador = new PesquisaDoador((PesquisaDoadorDal) context, new DoadorRepositorioImpl(getContext()));
     }
 
     @Override
@@ -123,6 +143,7 @@ public class CadastroDoadorDialog extends AppCompatDialogFragment implements Doa
 
     @Override
     public void finalizarCadastro() {
+        pesquisaDoador.exibirDoadores();
         dismiss();
     }
 
@@ -172,8 +193,6 @@ public class CadastroDoadorDialog extends AppCompatDialogFragment implements Doa
 
         return true;
     }
-
-
 
     private void limparCorrecoesDeErros() {
         inputTextNumeroIdentificador.setErrorEnabled(false);
