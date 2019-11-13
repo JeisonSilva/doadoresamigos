@@ -127,7 +127,7 @@ public class PesquisaDoadorActivity extends AppCompatActivity implements Pesquis
     }
 
     private void exibirListaDoadores(ArrayList<DoadorDto> doadores) {
-        DoadorAdapter adapter = new DoadorAdapter(doadores, this);
+        DoadorAdapter adapter = new DoadorAdapter(doadores, this, getSupportFragmentManager());
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
 
         rvDoadores.setLayoutManager(layoutManager);

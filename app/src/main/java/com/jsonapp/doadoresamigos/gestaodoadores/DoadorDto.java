@@ -1,6 +1,8 @@
 package com.jsonapp.doadoresamigos.gestaodoadores;
 
-public class DoadorDto {
+import java.io.Serializable;
+
+public class DoadorDto implements Serializable {
     private int codigo;
     private String nome;
     private String sobrenome;
