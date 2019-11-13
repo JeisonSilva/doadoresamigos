@@ -12,7 +12,9 @@ public class AlteracaoDoador {
     public void alterar() {
         DoadorDto dadosDoadorAtualizado  = doadorDal.obterDadosInformadosPeloUsuario();
 
-        if(this.doadorDal.validarPreenchimentoDados())
+        if(this.doadorDal.validarPreenchimentoDados()){
             this.doadorRepositorio.alterar(dadosDoadorAtualizado);
+            this.doadorDal.finalizarCadastro();
+        }
     }
 }

@@ -2,13 +2,16 @@ package com.jsonapp.doadoresamigos.adapters;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jsonapp.doadoresamigos.AtualizacaoCadastroDialog;
 import com.jsonapp.doadoresamigos.R;
 import com.jsonapp.doadoresamigos.gestaodoadores.AlteracaoDoador;
 import com.jsonapp.doadoresamigos.gestaodoadores.DoadorDal;
@@ -25,14 +28,16 @@ public class DoadorAdapter extends RecyclerView.Adapter<DoadorViewHolder> implem
 
     private final ArrayList<DoadorDto> doadores;
     private final Context context;
+    private final FragmentManager fm;
     private ExclusaoDoador exclusaoDoador;
     private DoadorViewHolder holder;
     private DoadorDto doador;
     private AlteracaoDoador alteracaoDoador;
 
-    public DoadorAdapter(ArrayList<DoadorDto> doadores, Context context) {
+    public DoadorAdapter(ArrayList<DoadorDto> doadores, Context context, FragmentManager fm) {
         this.doadores = doadores;
         this.context = context;
+        this.fm = fm;
     }
 
     @NonNull
@@ -62,7 +67,10 @@ public class DoadorAdapter extends RecyclerView.Adapter<DoadorViewHolder> implem
         holder.imgViewEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Bundle args = new Bundle();
+                args.putSerializable("doador", doadores.get(position));
+                AtualizacaoCadastroDialog cadastroDialog = AtualizacaoCadastroDialog.newInstance(args);
+                cadastroDialog.openDialog(fm);
             }
         });
         holder.imgViewDelete.setOnClickListener(new View.OnClickListener() {

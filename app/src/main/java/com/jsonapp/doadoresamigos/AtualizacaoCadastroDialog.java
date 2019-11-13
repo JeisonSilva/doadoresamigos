@@ -16,16 +16,16 @@ import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.jsonapp.doadoresamigos.gestaodoadores.AlteracaoDoador;
+import com.jsonapp.doadoresamigos.gestaodoadores.DoadorDal;
 import com.jsonapp.doadoresamigos.gestaodoadores.DoadorDto;
 import com.jsonapp.doadoresamigos.gestaodoadores.DoadorRepositorioImpl;
 import com.jsonapp.doadoresamigos.gestaodoadores.PesquisaDoador;
 import com.jsonapp.doadoresamigos.gestaodoadores.PesquisaDoadorDal;
-import com.jsonapp.doadoresamigos.gestaodoadores.RegistroDoador;
-import com.jsonapp.doadoresamigos.gestaodoadores.DoadorDal;
 
-public class CadastroDoadorDialog extends AppCompatDialogFragment implements DoadorDal {
+public class AtualizacaoCadastroDialog extends AppCompatDialogFragment implements DoadorDal {
 
-    private static final String DIALOG_TAG = "cadastroDoadorDialog";
+    private static final String DIALOG_TAG = "AtualizacaoCadastroDialog";
     private TextInputLayout inputTextNumeroIdentificador;
     private TextInputLayout inputTextNome;
     private TextInputLayout inputTextSobrenome;
@@ -42,20 +42,27 @@ public class CadastroDoadorDialog extends AppCompatDialogFragment implements Doa
     private AppCompatSpinner spinnerFatorRh;
     private AppCompatButton btnRegistro;
     private AppCompatButton btnCancelamento;
-    private RegistroDoador registroDoador;
+    private AlteracaoDoador alteracaoDoador;
     private PesquisaDoador pesquisaDoador;
 
-    public static CadastroDoadorDialog newInstance() {
-        CadastroDoadorDialog fragment = new CadastroDoadorDialog();
+    public static AtualizacaoCadastroDialog newInstance(Bundle args) {
+
+        AtualizacaoCadastroDialog fragment = new AtualizacaoCadastroDialog();
+        fragment.setArguments(args);
         return fragment;
     }
-
+    
+    public void openDialog(FragmentManager fm){
+        if(fm.findFragmentByTag(DIALOG_TAG) == null)
+            show(fm, DIALOG_TAG);
+    }
+    
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cadastro_doador, container, false);
-
         inputTextNumeroIdentificador = view.findViewById(R.id.inputTextNumeroIdentificador);
+        inputTextNumeroIdentificador.setEnabled(false);
         inputTextNome = view.findViewById(R.id.inputTextNome);
         inputTextSobrenome = view.findViewById(R.id.inputTextSobrenome);
         inputTextIdade = view.findViewById(R.id.inputTextIdade);
@@ -78,29 +85,9 @@ public class CadastroDoadorDialog extends AppCompatDialogFragment implements Doa
         btnRegistro.setOnClickListener(registrarListener);
         btnCancelamento.setOnClickListener(cancelarListener);
 
-        registroDoador = new RegistroDoador(this, new DoadorRepositorioImpl(view.getContext()));
-
+        this.alteracaoDoador = new AlteracaoDoador(this, new DoadorRepositorioImpl(getContext()));
+        carregarDadosParaAlteracao(getArguments());
         return view;
-    }
-
-    View.OnClickListener registrarListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            registroDoador.registrar();
-        }
-    };
-
-    View.OnClickListener cancelarListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            pesquisaDoador.exibirDoadores();
-            dismiss();
-        }
-    };
-
-    public void openDialog(FragmentManager fm){
-        if(fm.findFragmentByTag(DIALOG_TAG) == null)
-            show(fm, DIALOG_TAG);
     }
 
     @Override
@@ -109,35 +96,63 @@ public class CadastroDoadorDialog extends AppCompatDialogFragment implements Doa
         pesquisaDoador = new PesquisaDoador((PesquisaDoadorDal) context, new DoadorRepositorioImpl(getContext()));
     }
 
+    private void carregarDadosParaAlteracao(Bundle bundle) {
+        DoadorDto doadorDto = (DoadorDto) bundle.getSerializable("doador");
+        inputEditNumeroIdentificador.setText(String.valueOf(doadorDto.getCodigo()));
+        inputEditNome.setText(doadorDto.getNome());
+        inputEditSobrenome.setText(doadorDto.getSobrenome());
+        inputEditIdade.setText(String.valueOf(doadorDto.getIdade()));
+        inputEditPeso.setText(String.valueOf(doadorDto.getPeso()));
+        inputEditALtura.setText(String.valueOf(doadorDto.getAltura()));
+
+    }
+
+    View.OnClickListener registrarListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            alteracaoDoador.alterar();
+        }
+    };
+
+    View.OnClickListener cancelarListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            dismiss();
+        }
+    };
+
     @Override
     public DoadorDto obterDadosInformadosPeloUsuario() {
-        Integer numeroIdentificacao = Integer.valueOf(inputEditNumeroIdentificador.getText().toString());
+        int id = Integer.parseInt(String.valueOf(inputEditNumeroIdentificador.getText()));
         String nome = String.valueOf(inputEditNome.getText());
         String sobrenome = String.valueOf(inputEditSobrenome.getText());
-        Integer idade = Integer.parseInt(inputEditIdade.getText().toString());
-        Integer peso = Integer.valueOf(inputEditPeso.getText().toString());
-        Double altura = Double.parseDouble(inputEditALtura.getText().toString());
-        String tipoSanguenio = String.valueOf(spinnerTipoSanguineo.getSelectedItem());
+        int idade = Integer.parseInt(String.valueOf(inputEditIdade.getText()));
+        String tipoSanguineo = String.valueOf(spinnerTipoSanguineo.getSelectedItem());
         String fatorRh = String.valueOf(spinnerFatorRh.getSelectedItem());
+        double peso = Double.parseDouble(String.valueOf(inputEditPeso.getText()));
+        double altura = Double.parseDouble(String.valueOf(inputEditALtura.getText()));
+
+
         DoadorDto doadorDto = new DoadorDto();
-        doadorDto.setCodigo(numeroIdentificacao);
+        doadorDto.setCodigo(id);
         doadorDto.setNome(nome);
         doadorDto.setSobrenome(sobrenome);
         doadorDto.setIdade(idade);
+        doadorDto.setTipoDeSangue(tipoSanguineo);
+        doadorDto.setFatorRh(fatorRh);
         doadorDto.setPeso(peso);
         doadorDto.setAltura(altura);
-        doadorDto.setTipoDeSangue(tipoSanguenio);
-        doadorDto.setFatorRh(fatorRh);
-
         return doadorDto;
     }
 
     @Override
+    public DoadorDto obterDadosDoador() {
+        return obterDadosInformadosPeloUsuario();
+    }
+
+    @Override
     public void notificarDadosInvalidos() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("Falha de validação");
-        builder.setMessage("Dados inválidos");
-        builder.create().show();
+
     }
 
     @Override
@@ -205,11 +220,6 @@ public class CadastroDoadorDialog extends AppCompatDialogFragment implements Doa
     private void notificarCodigoIdentificacao() {
         inputTextNumeroIdentificador.setErrorEnabled(true);
         inputTextNumeroIdentificador.setError("Código não pode ser nulo");
-    }
-
-    @Override
-    public DoadorDto obterDadosDoador() {
-        return obterDadosInformadosPeloUsuario();
     }
 
     private void notificarNomeInvalido() {

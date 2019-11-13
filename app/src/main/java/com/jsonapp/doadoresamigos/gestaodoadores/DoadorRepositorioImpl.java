@@ -77,17 +77,11 @@ public class DoadorRepositorioImpl implements DoadorRepositorio {
     @Override
     public void alterar(DoadorDto doadorDto) {
         SQLiteDatabase sqLiteDatabase = sqliteHelper.getWritableDatabase();
+        ContentValues values = gerarValoresParaGravarDados(doadorDto);
 
-        try{
-            sqLiteDatabase.beginTransaction();
-            ContentValues values = gerarValoresParaGravarDados(doadorDto);
-            sqLiteDatabase.update(TABELA, values, CAMPO_ID + "=?", new String[]{String.valueOf(doadorDto.getCodigo())});
-        }catch (Exception ex){
-            sqLiteDatabase.close();
-        }finally {
-            sqLiteDatabase.endTransaction();
-            sqLiteDatabase.close();
-        }
+        String id = String.valueOf(doadorDto.getCodigo());
+        sqLiteDatabase.update(TABELA, values, "_ID = ?", new String[]{id});
+        sqLiteDatabase.close();
     }
 
     @Override
