@@ -84,6 +84,7 @@ public class PesquisaDoadorActivity extends AppCompatActivity implements Pesquis
                 excluscaoConta.excluirConta();
                 break;
             case R.id.mnu_termino_sessao:
+                encerrarSessao();
                 break;
         }
 
