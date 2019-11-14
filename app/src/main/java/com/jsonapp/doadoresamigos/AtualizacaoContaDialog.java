@@ -113,6 +113,17 @@ public class AtualizacaoContaDialog extends AppCompatDialogFragment implements A
     }
 
     @Override
+    public void notificarSenhaEmBranco() {
+        inputTextSenha.setErrorEnabled(true);
+        inputTextSenha.setError("Senha não pode estar em branco");
+    }
+
+    @Override
+    public void finalizarAlteracao() {
+        dismiss();
+    }
+
+    @Override
     public void exibirDadosContaUsuario(ContaDto contaDto) {
         inputEditUsuario.setText(contaDto.getUsuario());
         inputTextUsuario.setEnabled(false);

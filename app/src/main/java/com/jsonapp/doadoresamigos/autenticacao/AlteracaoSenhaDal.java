@@ -8,4 +8,8 @@ public interface AlteracaoSenhaDal extends AlteracaoSenhaDialogDal {
     void notificarConfirmacaoSenhaInvalida();
 
     void limparNotificacoes();
+
+    void notificarSenhaEmBranco();
+
+    void finalizarAlteracao();
 }

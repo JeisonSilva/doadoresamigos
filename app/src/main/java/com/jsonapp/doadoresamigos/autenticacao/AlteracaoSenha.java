@@ -22,15 +22,17 @@ public class AlteracaoSenha {
 
         this.alteracaoSenhaDal.limparNotificacoes();
 
-        if(contaDto.getUsuario().equals(contaExistenteDto.getUsuario()))
-            conta.alterarSenha(contaDto.getSenha());
-        else
-            this.alteracaoSenhaDal.notificarUsuarioInexistente();
+        if(contaDto.getSenha().isEmpty()){
+            this.alteracaoSenhaDal.notificarSenhaEmBranco();
 
-        if(conta.ConfirmarSenha(contaDto.getConfirmacaoSenha()))
-            this.contaRepositorio.alterar(contaDto);
-        else
+        }else if(!conta.ConfirmarSenha(contaDto.getConfirmacaoSenha())){
             this.alteracaoSenhaDal.notificarConfirmacaoSenhaInvalida();
+
+        }else{
+            conta.alterarSenha(contaDto.getSenha());
+            this.contaRepositorio.alterar(contaDto);
+            this.alteracaoSenhaDal.finalizarAlteracao();
+        }
     }
 
     public void exibirContaCadastrada() {
