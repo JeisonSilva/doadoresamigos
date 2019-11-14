@@ -1,6 +1,8 @@
 package com.jsonapp.doadoresamigos.autenticacao;
 
-public class ContaDto {
+import java.io.Serializable;
+
+public class ContaDto implements Serializable {
     private String usuario;
     private String senha;
     private String confirmacaoSenha;

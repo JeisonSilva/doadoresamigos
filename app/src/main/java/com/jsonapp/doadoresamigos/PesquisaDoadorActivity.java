@@ -1,5 +1,6 @@
 package com.jsonapp.doadoresamigos;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -8,11 +9,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.jsonapp.doadoresamigos.adapters.DoadorAdapter;
+import com.jsonapp.doadoresamigos.autenticacao.AlteracaoSenha;
+import com.jsonapp.doadoresamigos.autenticacao.AlteracaoSenhaDialogDal;
+import com.jsonapp.doadoresamigos.autenticacao.ContaDto;
+import com.jsonapp.doadoresamigos.autenticacao.ContaRepositorioImpl;
 import com.jsonapp.doadoresamigos.gestaodoadores.DoadorDto;
 import com.jsonapp.doadoresamigos.gestaodoadores.DoadorRepositorioImpl;
 import com.jsonapp.doadoresamigos.gestaodoadores.PesquisaDoador;
@@ -20,7 +28,7 @@ import com.jsonapp.doadoresamigos.gestaodoadores.PesquisaDoadorDal;
 
 import java.util.ArrayList;
 
-public class PesquisaDoadorActivity extends AppCompatActivity implements PesquisaDoadorDal {
+public class PesquisaDoadorActivity extends AppCompatActivity implements PesquisaDoadorDal, AlteracaoSenhaDialogDal {
 
     private Toolbar toolbar;
     private SearchView search;
@@ -28,6 +36,7 @@ public class PesquisaDoadorActivity extends AppCompatActivity implements Pesquis
     private PesquisaDoador pesquisaDoador;
     private RecyclerView rvDoadores;
     private String codigoDoador;
+    private AlteracaoSenha alteracaoConta;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +53,7 @@ public class PesquisaDoadorActivity extends AppCompatActivity implements Pesquis
         fbAddDoador.setOnClickListener(addDoadorListener);
 
         pesquisaDoador = new PesquisaDoador(this, new DoadorRepositorioImpl(getBaseContext()));
+        alteracaoConta = new AlteracaoSenha(this, new ContaRepositorioImpl(getBaseContext()));
     }
 
     @Override
@@ -51,6 +61,27 @@ public class PesquisaDoadorActivity extends AppCompatActivity implements Pesquis
         super.onStart();
 
         pesquisaDoador.exibirDoadores();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_manutencao_login, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.mnu_alteracao_senha:
+                alteracaoConta.exibirContaCadastrada();
+                break;
+            case R.id.mnu_exclusao_conta:
+                break;
+            case R.id.mnu_termino_sessao:
+                break;
+        }
+
+        return true;
     }
 
     private void configurarPesquisaDoador(SearchView search) {
@@ -132,5 +163,14 @@ public class PesquisaDoadorActivity extends AppCompatActivity implements Pesquis
 
         rvDoadores.setLayoutManager(layoutManager);
         rvDoadores.setAdapter(adapter);
+    }
+
+    @Override
+    public void exibirDadosContaUsuario(ContaDto contaDto) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("conta", contaDto);
+
+        AtualizacaoContaDialog atualizacaoContaDialog = AtualizacaoContaDialog.newInstance(bundle);
+        atualizacaoContaDialog.openDialog(getSupportFragmentManager());
     }
 }

@@ -62,4 +62,29 @@ public class ContaRepositorioImpl implements ContaRepositorio {
     public void excluirConta(ContaDto contaDto) {
 
     }
+
+    @Override
+    public ContaDto obterConta() {
+        SQLiteDatabase sqLiteDatabase = sqliteHelper.getReadableDatabase();
+        ContaDto conta = new ContaDto();
+
+        Cursor c = sqLiteDatabase.query(
+                TabelaConta.TABELA,
+                new String[]{TabelaConta.CAMPO_USUARIO, TabelaConta.CAMPO_SENHA},
+                null,
+                null,
+                null,
+                null,
+                null);
+
+        if(c.moveToFirst()){
+            String usuario = c.getString(c.getColumnIndex(TabelaConta.CAMPO_USUARIO));
+            String senha = c.getString(c.getColumnIndex(TabelaConta.CAMPO_SENHA));
+            conta.setUsuario(usuario);
+            conta.setSenha(senha);
+        }
+        c.close();
+        sqLiteDatabase.close();
+        return conta;
+    }
 }

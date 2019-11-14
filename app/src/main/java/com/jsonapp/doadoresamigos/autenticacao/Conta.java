@@ -10,7 +10,7 @@ class Conta {
     }
 
     public boolean ConfirmarSenha(String confirmacaoSenha) {
-        if(this.senha == null)
+        if(this.senha == null || this.senha.isEmpty())
             return false;
 
         return this.senha.equals(confirmacaoSenha);
