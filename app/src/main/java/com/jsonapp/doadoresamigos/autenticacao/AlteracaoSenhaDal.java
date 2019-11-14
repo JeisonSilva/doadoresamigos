@@ -3,7 +3,9 @@ package com.jsonapp.doadoresamigos.autenticacao;
 public interface AlteracaoSenhaDal extends AlteracaoSenhaDialogDal {
     ContaDto obterDadosContaDigitada();
 
-    Void notificarUsuarioInexistente();
+    void notificarUsuarioInexistente();
 
-    Void notificarConfirmacaoSenhaInvalida();
+    void notificarConfirmacaoSenhaInvalida();
+
+    void limparNotificacoes();
 }

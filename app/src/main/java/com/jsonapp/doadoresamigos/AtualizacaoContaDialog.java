@@ -13,8 +13,10 @@ import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.jsonapp.doadoresamigos.autenticacao.AlteracaoSenha;
 import com.jsonapp.doadoresamigos.autenticacao.AlteracaoSenhaDal;
 import com.jsonapp.doadoresamigos.autenticacao.ContaDto;
+import com.jsonapp.doadoresamigos.autenticacao.ContaRepositorioImpl;
 import com.jsonapp.doadoresamigos.autenticacao.NovaConta;
 
 public class AtualizacaoContaDialog extends AppCompatDialogFragment implements AlteracaoSenhaDal {
@@ -27,6 +29,7 @@ public class AtualizacaoContaDialog extends AppCompatDialogFragment implements A
     private AppCompatButton btnCancelar;
     private TextInputLayout inputTextConfirmacao;
     private TextInputEditText inputEditConfirmacao;
+    private AlteracaoSenha alteracaoSenha;
 
 
     public static AtualizacaoContaDialog newInstance(Bundle args) {
@@ -59,12 +62,14 @@ public class AtualizacaoContaDialog extends AppCompatDialogFragment implements A
         ContaDto contaDto = (ContaDto) getArguments().getSerializable("conta");
         exibirDadosContaUsuario(contaDto);
 
+        alteracaoSenha = new AlteracaoSenha(this, new ContaRepositorioImpl(getContext()));
         return view;
     }
 
     View.OnClickListener registrarListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            alteracaoSenha.alterarSenha();
         }
     };
 
@@ -77,17 +82,34 @@ public class AtualizacaoContaDialog extends AppCompatDialogFragment implements A
 
     @Override
     public ContaDto obterDadosContaDigitada() {
-        return null;
+        String usuario = String.valueOf(inputEditUsuario.getText());
+        String senha = String.valueOf(inputEditSenha.getText());
+        String confirmacao = String.valueOf(inputEditConfirmacao.getText());
+
+        ContaDto contaDto = new ContaDto();
+        contaDto.setUsuario(usuario);
+        contaDto.setSenha(senha);
+        contaDto.setConfirmacaoSenha(confirmacao);
+        return contaDto;
     }
 
     @Override
-    public Void notificarUsuarioInexistente() {
-        return null;
+    public void notificarUsuarioInexistente() {
+        inputTextUsuario.setErrorEnabled(true);
+        inputTextUsuario.setError("Digite um usuário");
     }
 
     @Override
-    public Void notificarConfirmacaoSenhaInvalida() {
-        return null;
+    public void notificarConfirmacaoSenhaInvalida() {
+        inputTextConfirmacao.setErrorEnabled(true);
+        inputTextConfirmacao.setError("Confirmação de senha inválida");
+    }
+
+    @Override
+    public void limparNotificacoes() {
+        inputTextUsuario.setErrorEnabled(false);
+        inputTextSenha.setErrorEnabled(false);
+        inputTextConfirmacao.setErrorEnabled(false);
     }
 
     @Override
