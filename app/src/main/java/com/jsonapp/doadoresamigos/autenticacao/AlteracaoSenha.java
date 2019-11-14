@@ -1,11 +1,17 @@
 package com.jsonapp.doadoresamigos.autenticacao;
 
 public class AlteracaoSenha {
-    private final AlteracaoSenhaDal alteracaoSenhaDal;
+    private AlteracaoSenhaDal alteracaoSenhaDal;
     private final ContaRepositorio contaRepositorio;
+    private AlteracaoSenhaDialogDal alteracaoSenhaDialogDal;
 
     public AlteracaoSenha(AlteracaoSenhaDal alteracaoSenhaDal, ContaRepositorio contaRepositorio) {
         this.alteracaoSenhaDal = alteracaoSenhaDal;
+        this.contaRepositorio = contaRepositorio;
+    }
+
+    public AlteracaoSenha(AlteracaoSenhaDialogDal alteracaoSenhaDialogDal, ContaRepositorio contaRepositorio) {
+        this.alteracaoSenhaDialogDal = alteracaoSenhaDialogDal;
         this.contaRepositorio = contaRepositorio;
     }
 
@@ -23,5 +29,10 @@ public class AlteracaoSenha {
             this.contaRepositorio.alterar(contaDto);
         else
             this.alteracaoSenhaDal.notificarConfirmacaoSenhaInvalida();
+    }
+
+    public void exibirContaCadastrada() {
+        ContaDto contaDto = this.contaRepositorio.obterConta();
+        alteracaoSenhaDialogDal.exibirDadosContaUsuario(contaDto);
     }
 }
