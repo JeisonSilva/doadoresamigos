@@ -17,7 +17,7 @@ public class AlteracaoSenha {
 
     public void alterarSenha() {
         ContaDto contaDto = this.alteracaoSenhaDal.obterDadosContaDigitada();
-        ContaDto contaExistenteDto = this.contaRepositorio.obterConta(contaDto);
+        ContaDto contaExistenteDto = this.contaRepositorio.obterConta();
         Conta conta = new Conta(contaExistenteDto.getUsuario(), contaExistenteDto.getSenha());
 
         this.alteracaoSenhaDal.limparNotificacoes();
