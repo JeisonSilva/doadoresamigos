@@ -1,5 +1,6 @@
 package com.jsonapp.doadoresamigos;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -8,6 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -51,6 +55,26 @@ public class PesquisaDoadorActivity extends AppCompatActivity implements Pesquis
         super.onStart();
 
         pesquisaDoador.exibirDoadores();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_manutencao_login, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.mnu_alteracao_senha:
+                break;
+            case R.id.mnu_exclusao_conta:
+                break;
+            case R.id.mnu_termino_sessao:
+                break;
+        }
+
+        return true;
     }
 
     private void configurarPesquisaDoador(SearchView search) {
