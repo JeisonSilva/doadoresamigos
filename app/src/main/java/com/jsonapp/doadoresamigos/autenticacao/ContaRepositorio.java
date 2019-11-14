@@ -6,8 +6,10 @@ public interface ContaRepositorio {
     void alterar(ContaDto contaDto);
     @Deprecated
     ContaDto obterConta(ContaDto contaDto);
-
+    @Deprecated
     void excluirConta(ContaDto contaDto);
 
     ContaDto obterConta();
+
+    void excluirConta();
 }

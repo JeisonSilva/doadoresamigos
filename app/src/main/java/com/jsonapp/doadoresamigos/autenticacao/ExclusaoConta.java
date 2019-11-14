@@ -1,5 +1,8 @@
 package com.jsonapp.doadoresamigos.autenticacao;
 
+import android.content.DialogInterface;
+import android.view.View;
+
 public class ExclusaoConta {
     private final ExclusaoContaDal exclusaoContaDal;
     private final ContaRepositorio contaRepositorio;
@@ -10,8 +13,16 @@ public class ExclusaoConta {
     }
 
     public void excluirConta() {
-        ContaDto contaDto = this.exclusaoContaDal.obterDadosConta();
-        this.contaRepositorio.excluirConta(contaDto);
-        this.exclusaoContaDal.encerrarSessao();
+        this.exclusaoContaDal.solicitarConfirmacaoDeConta(excluirListener);
+
+
     }
+
+    DialogInterface.OnClickListener excluirListener = new DialogInterface.OnClickListener() {
+        @Override
+        public void onClick(DialogInterface dialogInterface, int i) {
+            contaRepositorio.excluirConta();
+            exclusaoContaDal.encerrarSessao();
+        }
+    };
 }
