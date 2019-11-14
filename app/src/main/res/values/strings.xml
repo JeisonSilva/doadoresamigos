@@ -20,6 +20,8 @@
     <string name="alertdialog_nao_existe_doador">Não existe doador com este código</string>
     <string name="alertdialog_codigoinvalido">Código inválido</string>
     <string name="alertdialog_codigoinexistente">Código inexistente</string>
+    <string name="alert_button_sim">SIM</string>
+    <string name="alert_button_nao">NÃO</string>
 
     <string-array name="tipossanguineos">
         <item>Tipo de Sangue</item>

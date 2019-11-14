@@ -87,4 +87,11 @@ public class ContaRepositorioImpl implements ContaRepositorio {
         sqLiteDatabase.close();
         return conta;
     }
+
+    @Override
+    public void excluirConta() {
+        SQLiteDatabase sqLiteDatabase = sqliteHelper.getReadableDatabase();
+        sqLiteDatabase.delete(TabelaConta.TABELA, null, null);
+        sqLiteDatabase.close();
+    }
 }

@@ -8,12 +8,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.jsonapp.doadoresamigos.adapters.DoadorAdapter;
@@ -21,6 +21,8 @@ import com.jsonapp.doadoresamigos.autenticacao.AlteracaoSenha;
 import com.jsonapp.doadoresamigos.autenticacao.AlteracaoSenhaDialogDal;
 import com.jsonapp.doadoresamigos.autenticacao.ContaDto;
 import com.jsonapp.doadoresamigos.autenticacao.ContaRepositorioImpl;
+import com.jsonapp.doadoresamigos.autenticacao.ExclusaoConta;
+import com.jsonapp.doadoresamigos.autenticacao.ExclusaoContaDal;
 import com.jsonapp.doadoresamigos.gestaodoadores.DoadorDto;
 import com.jsonapp.doadoresamigos.gestaodoadores.DoadorRepositorioImpl;
 import com.jsonapp.doadoresamigos.gestaodoadores.PesquisaDoador;
@@ -28,7 +30,7 @@ import com.jsonapp.doadoresamigos.gestaodoadores.PesquisaDoadorDal;
 
 import java.util.ArrayList;
 
-public class PesquisaDoadorActivity extends AppCompatActivity implements PesquisaDoadorDal, AlteracaoSenhaDialogDal {
+public class PesquisaDoadorActivity extends AppCompatActivity implements PesquisaDoadorDal, AlteracaoSenhaDialogDal, ExclusaoContaDal {
 
     private Toolbar toolbar;
     private SearchView search;
@@ -37,6 +39,8 @@ public class PesquisaDoadorActivity extends AppCompatActivity implements Pesquis
     private RecyclerView rvDoadores;
     private String codigoDoador;
     private AlteracaoSenha alteracaoConta;
+    private ExclusaoConta excluscaoConta;
+    private boolean confirmacao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +58,7 @@ public class PesquisaDoadorActivity extends AppCompatActivity implements Pesquis
 
         pesquisaDoador = new PesquisaDoador(this, new DoadorRepositorioImpl(getBaseContext()));
         alteracaoConta = new AlteracaoSenha(this, new ContaRepositorioImpl(getBaseContext()));
+        excluscaoConta = new ExclusaoConta(this, new ContaRepositorioImpl(getBaseContext()));
     }
 
     @Override
@@ -76,6 +81,7 @@ public class PesquisaDoadorActivity extends AppCompatActivity implements Pesquis
                 alteracaoConta.exibirContaCadastrada();
                 break;
             case R.id.mnu_exclusao_conta:
+                excluscaoConta.excluirConta();
                 break;
             case R.id.mnu_termino_sessao:
                 break;
@@ -172,5 +178,36 @@ public class PesquisaDoadorActivity extends AppCompatActivity implements Pesquis
 
         AtualizacaoContaDialog atualizacaoContaDialog = AtualizacaoContaDialog.newInstance(bundle);
         atualizacaoContaDialog.openDialog(getSupportFragmentManager());
+    }
+
+    @Override
+    public void solicitarConfirmacaoDeConta(DialogInterface.OnClickListener excluirListener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Confirmação");
+        builder.setIcon(R.mipmap.ic_delete);
+        builder.setMessage("Você deseja deletar sua conta?");
+
+        builder.setPositiveButton(getString(R.string.alert_button_sim), excluirListener);
+
+        builder.setNegativeButton(getString(R.string.alert_button_nao), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+
+        builder.create().show();
+    }
+
+    @Override
+    public boolean obterConfirmacao() {
+        return confirmacao;
+    }
+
+    @Override
+    public void encerrarSessao() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
