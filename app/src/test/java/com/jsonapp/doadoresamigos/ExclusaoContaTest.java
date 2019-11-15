@@ -29,25 +29,4 @@ public class ExclusaoContaTest {
         MockitoAnnotations.initMocks(this);
     }
 
-    @Test
-    public void DeveExcluirConta(){
-        ContaDto contaDto = new ContaDto();
-        when(this.exclusaoContaDal.obterDadosConta()).thenReturn(contaDto);
-
-        this.exclusaoConta.excluirConta();
-
-        verify(this.contaRepositorio).excluirConta(Mockito.any(ContaDto.class));
-    }
-
-    @Test
-    public void DeveRedirecionarParaTelaLoginPosContaExcluida(){
-        ContaDto contaDto = new ContaDto();
-        when(this.exclusaoContaDal.obterDadosConta()).thenReturn(contaDto);
-
-        this.exclusaoConta.excluirConta();
-
-        verify(this.contaRepositorio).excluirConta(Mockito.any(ContaDto.class));
-        verify(this.exclusaoContaDal).encerrarSessao();
-    }
-
 }
