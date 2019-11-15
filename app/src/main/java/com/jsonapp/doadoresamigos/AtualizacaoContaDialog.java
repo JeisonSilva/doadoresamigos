@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -30,6 +31,7 @@ public class AtualizacaoContaDialog extends AppCompatDialogFragment implements A
     private TextInputLayout inputTextConfirmacao;
     private TextInputEditText inputEditConfirmacao;
     private AlteracaoSenha alteracaoSenha;
+    private AppCompatTextView textview_titulo;
 
 
     public static AtualizacaoContaDialog newInstance(Bundle args) {
@@ -47,6 +49,7 @@ public class AtualizacaoContaDialog extends AppCompatDialogFragment implements A
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cadastro_usuario, container, false);
+        textview_titulo = view.findViewById(R.id.textview_cadastro_doador_titulo);
         inputTextUsuario = view.findViewById(R.id.inputTextUsuario);
         inputTextSenha = view.findViewById(R.id.inputTextSenha);
         inputTextConfirmacao = view.findViewById(R.id.inputTextConfirmcaoSenha);
@@ -58,6 +61,7 @@ public class AtualizacaoContaDialog extends AppCompatDialogFragment implements A
 
         btnRegistrar.setOnClickListener(registrarListener);
         btnCancelar.setOnClickListener(cancelarListener);
+        textview_titulo.setText(R.string.titulo_cadastro_conta);
 
         ContaDto contaDto = (ContaDto) getArguments().getSerializable("conta");
         exibirDadosContaUsuario(contaDto);
@@ -96,13 +100,13 @@ public class AtualizacaoContaDialog extends AppCompatDialogFragment implements A
     @Override
     public void notificarUsuarioInexistente() {
         inputTextUsuario.setErrorEnabled(true);
-        inputTextUsuario.setError("Digite um usuário");
+        inputTextUsuario.setError(getString(R.string.digite_usuario));
     }
 
     @Override
     public void notificarConfirmacaoSenhaInvalida() {
         inputTextConfirmacao.setErrorEnabled(true);
-        inputTextConfirmacao.setError("Confirmação de senha inválida");
+        inputTextConfirmacao.setError(getString(R.string.confirmacao_senha_invalida));
     }
 
     @Override
@@ -115,7 +119,7 @@ public class AtualizacaoContaDialog extends AppCompatDialogFragment implements A
     @Override
     public void notificarSenhaEmBranco() {
         inputTextSenha.setErrorEnabled(true);
-        inputTextSenha.setError("Senha não pode estar em branco");
+        inputTextSenha.setError(getString(R.string.senha_em_branco));
     }
 
     @Override

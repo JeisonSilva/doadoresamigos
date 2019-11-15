@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">DoadoresAmigos</string>
+    <string name="app_name">Doadores amigos</string>
     <string name="slogam_bem_vindo">Bem-Vindo ao Controle de Doadores</string>
     <string name="slogam_orientacao_login">Faça o login para começar</string>
     <string name="btn_sessao_usuario">INICIAR SESSÃO</string>
@@ -7,7 +7,8 @@
     <string name="hint_senha">Senha</string>
     <string name="hint_confirmacao_senha">Confirmação da senha</string>
     <string name="hint_titulo_pesquisa_doador">ID do doador</string>
-    <string name="titulo_cadastro_doador">Novo Doador</string>
+    <string name="titulo_cadastro_doador">Novo doador</string>
+    <string name="titulo_edicao_doador">Editar doador</string>
     <string name="cadastro_doador_n_identificador">Nº. de Identificação</string>
     <string name="cadastro_doador_nome">Nome</string>
     <string name="cadastro_doador_sobrenome">Sobrenome</string>
@@ -22,6 +23,22 @@
     <string name="alertdialog_codigoinexistente">Código inexistente</string>
     <string name="alert_button_sim">SIM</string>
     <string name="alert_button_nao">NÃO</string>
+    <string name="digite_usuario">Digite um usuário</string>
+    <string name="confirmacao_senha_invalida">Confirmação de senha inválida</string>
+    <string name="senha_em_branco">Senha não pode estar em branco</string>
+    <string name="titulo_cadastro_conta">Alterar senha</string>
+    <string name="codigo_doador_nulo">Código não pode ser nulo</string>
+    <string name="nome_invalido">Nome inválido</string>
+    <string name="sobrenome_invalido">Sobrenome inválido</string>
+    <string name="idade_invalida">Idade inválido</string>
+    <string name="alert_fator_rh_titulo">Escolha de opção</string>
+    <string name="alert_fator_rh_mensagem">Escolha uma opção Fator RH</string>
+    <string name="alert_tipo_sanguineo_titulo">Escolha de opção</string>
+    <string name="alert_tipo_sanguineo_mensagem">Escolha um tipo sanguineo</string>
+    <string name="pesso_invalido">Peso inválido</string>
+    <string name="usuario_hint">usuário ...</string>
+    <string name="senha_hint">senha ...</string>
+    <string name="btn_novo_usuario">NOVO USUÁRIO</string>
 
     <string-array name="tipossanguineos">
         <item>Tipo de Sangue</item>

@@ -90,6 +90,7 @@ public class DoadorRepositorioImpl implements DoadorRepositorio {
         SQLiteDatabase sqLiteDatabase = sqliteHelper.getReadableDatabase();
         String[] colunas = {
                 CAMPO_NOME,
+                CAMPO_SOBRENOME,
                 CAMPO_ID,
                 CAMPO_IDADE,
                 CAMPO_TIPO_SANGUINEO,
@@ -105,6 +106,7 @@ public class DoadorRepositorioImpl implements DoadorRepositorio {
             DoadorDto doadorDto = new DoadorDto();
 
             String nome = cursor.getString(cursor.getColumnIndex(CAMPO_NOME));
+            String sobrenome = cursor.getString(cursor.getColumnIndex(CAMPO_SOBRENOME));
             Integer codigoDoador = cursor.getInt(cursor.getColumnIndex(CAMPO_ID));
             Integer idade = cursor.getInt(cursor.getColumnIndex(CAMPO_IDADE));
             String tipoSanguineo = cursor.getString(cursor.getColumnIndex(CAMPO_TIPO_SANGUINEO));
@@ -113,6 +115,7 @@ public class DoadorRepositorioImpl implements DoadorRepositorio {
             double altura = cursor.getInt(cursor.getColumnIndex(CAMPO_ALTURA));
 
             doadorDto.setNome(nome);
+            doadorDto.setSobrenome(sobrenome);
             doadorDto.setCodigo(codigoDoador);
             doadorDto.setIdade(idade);
             doadorDto.setTipoDeSangue(tipoSanguineo);

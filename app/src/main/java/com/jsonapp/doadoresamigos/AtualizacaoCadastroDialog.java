@@ -12,6 +12,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.fragment.app.FragmentManager;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -44,6 +45,7 @@ public class AtualizacaoCadastroDialog extends AppCompatDialogFragment implement
     private AppCompatButton btnCancelamento;
     private AlteracaoDoador alteracaoDoador;
     private PesquisaDoador pesquisaDoador;
+    private AppCompatTextView textViewTitulo;
 
     public static AtualizacaoCadastroDialog newInstance(Bundle args) {
 
@@ -61,6 +63,7 @@ public class AtualizacaoCadastroDialog extends AppCompatDialogFragment implement
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_cadastro_doador, container, false);
+        textViewTitulo = view.findViewById(R.id.textview_cadastro_doador_titulo);
         inputTextNumeroIdentificador = view.findViewById(R.id.inputTextNumeroIdentificador);
         inputTextNumeroIdentificador.setEnabled(false);
         inputTextNome = view.findViewById(R.id.inputTextNome);
@@ -84,6 +87,7 @@ public class AtualizacaoCadastroDialog extends AppCompatDialogFragment implement
 
         btnRegistro.setOnClickListener(registrarListener);
         btnCancelamento.setOnClickListener(cancelarListener);
+        textViewTitulo.setText(getString(R.string.titulo_edicao_doador));
 
         this.alteracaoDoador = new AlteracaoDoador(this, new DoadorRepositorioImpl(getContext()));
         carregarDadosParaAlteracao(getArguments());
@@ -219,22 +223,22 @@ public class AtualizacaoCadastroDialog extends AppCompatDialogFragment implement
 
     private void notificarCodigoIdentificacao() {
         inputTextNumeroIdentificador.setErrorEnabled(true);
-        inputTextNumeroIdentificador.setError("Código não pode ser nulo");
+        inputTextNumeroIdentificador.setError(getString(R.string.codigo_doador_nulo));
     }
 
     private void notificarNomeInvalido() {
         inputTextNome.setErrorEnabled(true);
-        inputTextNome.setError("Nome inválido");
+        inputTextNome.setError(getString(R.string.nome_invalido));
     }
 
     private void notificarSobrenome() {
         inputTextSobrenome.setErrorEnabled(true);
-        inputTextSobrenome.setError("Sobrenome inválido");
+        inputTextSobrenome.setError(getString(R.string.sobrenome_invalido));
     }
 
     private void norificarIdadeInvalida() {
         inputTextIdade.setErrorEnabled(true);
-        inputTextIdade.setError("Idade inválido");
+        inputTextIdade.setError(getString(R.string.idade_invalida));
     }
 
     private void notificarAlturaInvalida() {
@@ -244,22 +248,22 @@ public class AtualizacaoCadastroDialog extends AppCompatDialogFragment implement
 
     private void notificarFatorRhInvalido() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("Escolha de opção");
-        builder.setMessage("Escolha uma opção Fator RH");
+        builder.setTitle(getString(R.string.alert_fator_rh_titulo));
+        builder.setMessage(getString(R.string.alert_fator_rh_mensagem));
 
         builder.create().show();
     }
 
     private void notificarTipoSanguineoInvalido() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-        builder.setTitle("Escolha de opção");
-        builder.setMessage("Escolha um tipo sanguineo");
+        builder.setTitle(getString(R.string.alert_tipo_sanguineo_titulo));
+        builder.setMessage(getString(R.string.alert_tipo_sanguineo_mensagem));
 
         builder.create().show();
     }
 
     private void notificarPesoInvalido() {
         inputTextAltura.setErrorEnabled(true);
-        inputTextAltura.setError("Peso inválido");
+        inputTextAltura.setError(getString(R.string.pesso_invalido));
     }
 }
